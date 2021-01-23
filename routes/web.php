@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\HospitalsController;
+use App\Http\Controllers\PatientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,7 @@ use App\Http\Controllers\PagesController;
 
 Route::get('/', [PagesController::class, 'landingPage']);
 Route::get('/dashboard', [PagesController::class, 'dashboardPage']);
+
+Route::get('/patients', [PatientsController::class, 'viewPatientsPage']);
+
+Route::get('/hospitals', [HospitalsController::class, 'viewHospitalsPage']);

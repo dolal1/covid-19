@@ -50,13 +50,16 @@
         <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" aria-current="page" href="#">Dashboard</a>
+              <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Notifications</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Hospitals</a>
+              <a class="nav-link" href="/patients">Patients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/hospitals">Hospitals</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Health Workers</a>
