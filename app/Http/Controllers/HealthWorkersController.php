@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Hospital;
+use App\Models\HealthWorker;
 
-class HospitalsController extends Controller
+class HealthWorkersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class HospitalsController extends Controller
      */
     public function index()
     {
-        $hospitals = Hospital::all();
-        return view('hospitals.index', [
-            'hospitals' => $hospitals,
+        $healthWorkers = HealthWorker::all();
+        return view('healthWorker.index', [
+            'healthWorkers' => $healthWorkers,
         ]);
     }
 
@@ -27,7 +27,7 @@ class HospitalsController extends Controller
      */
     public function create()
     {
-        return view('hospitals.create');
+        return view('healthWorker.create');
     }
 
     /**
@@ -49,8 +49,8 @@ class HospitalsController extends Controller
      */
     public function show($id)
     {
-        $hospital = Hospital::findOrFail($id);
-        return view('hospitals.show', ['hospital' => $hospital]);
+        $healthWorker = HealthWorker::findOrFail($id);
+        return view('healthWorker.show', ['healthWorker' => $healthWorker]);
     }
 
     /**
