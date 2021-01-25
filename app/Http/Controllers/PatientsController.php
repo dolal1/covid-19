@@ -73,7 +73,8 @@ class PatientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $patient = Patient::findOrFail($id);
+        return view('patients.edit', ['patient' => $patient]);
     }
 
     /**
@@ -85,7 +86,17 @@ class PatientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $patient = Patient::find($id);
+
+        $patient->name = request('name');
+        $patient->hospital = request('hospital');
+        $patient->gender = request('gender');
+        $patient->officer = request('officer');
+        $patient->asymptomatic = request('asymptomatic');
+
+        $patient->save();
+
+        return redirect('/patients')->with('msg', 'Patient Info has Been Updated in the Database');
     }
 
     /**
@@ -96,6 +107,9 @@ class PatientsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // $patient = Patient::findOrFail($id);
+        // $patient->delete();
+
+        return redirect('/patients')->with('msg', 'Patient has Been Removed from the Database');
     }
 }

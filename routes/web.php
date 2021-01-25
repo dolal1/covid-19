@@ -28,13 +28,22 @@ Route::get('/patients', [PatientsController::class, 'index']);
 Route::get('/patients/create', [PatientsController::class, 'create']);
 Route::post('/patients', [PatientsController::class, 'store']);
 Route::get('/patients/{id}', [PatientsController::class, 'show']);
+Route::get('/patients/{id}/edit', [PatientsController::class, 'edit']);
+Route::patch('/patients/{id}', [PatientsController::class, 'update']);
+Route::delete('/patients/{id}', [PatientsController::class, 'destroy']);
 
 Route::get('/healthworkers', [HealthWorkersController::class, 'index']);
 Route::get('/healthworkers/create', [HealthWorkersController::class, 'create']);
 Route::post('/healthworkers', [HealthWorkersController::class, 'store']);
 Route::get('/healthworkers/{id}', [HealthWorkersController::class, 'show']);
+Route::get('/healthworkers/{id}/edit', [HealthWorkersController::class, 'edit']);
+Route::patch('/healthworkers/{id}', [HealthWorkersController::class, 'update']);
+Route::delete('/healthworkers/{id}', [HealthWorkersController::class, 'destroy']);
 
 Route::get('/hospitals', [HospitalsController::class, 'index']);
 Route::get('/hospitals/create', [HospitalsController::class, 'create']);
 Route::post('/hospitals', [HospitalsController::class, 'store']);
 Route::get('/hospitals/{id}', [HospitalsController::class, 'show']);
+Route::get('/hospitals/{id}/edit', [HospitalsController::class, 'edit']);
+Route::patch('/hospitals/{id}', [HospitalsController::class, 'update']);
+Route::delete('/hospitals/{id}', [HospitalsController::class, 'destroy']);

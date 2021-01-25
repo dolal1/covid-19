@@ -6,7 +6,7 @@
       <h3 class="h3 mt-3 lh-1">{{$patient -> name}}</h3>
     </div>
 </div>
-<div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
+<div class="align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="d-flex text-muted pt-3">
         <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
             role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -26,8 +26,16 @@
                 @endif
             </p>
             <p>Health Worker: {{$patient -> officer}}</p>
-    
         </div>
+    </div>
+    <div class="mt-2 mb-5 col-8">
+        <a class="btn btn-outline-info float-left" href="/patients/{{ $patient -> id }}/edit" >Edit Paitent Details</a>
+
+        <form action="/patients/{{ $patient -> id }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-outline-warning float-right">Discharge Paitent</button>
+        </form>
     </div>
 </div>
 

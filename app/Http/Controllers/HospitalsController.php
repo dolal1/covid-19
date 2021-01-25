@@ -68,7 +68,8 @@ class HospitalsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hospital = Hospital::findOrFail($id);
+        return view('hospitals.edit', ['hospital' => $hospital]);
     }
 
     /**
@@ -80,7 +81,14 @@ class HospitalsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $hospital = Hospital::find($id);
+
+        $hospital->name = request('hospital');
+        $hospital->district = request('district');
+
+        $hospital->save();
+
+        return redirect('/hospitals')->with('msg', 'Hospital Info has Been Updated in the Database');
     }
 
     /**
@@ -91,6 +99,9 @@ class HospitalsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // $hospital = Hospital::findOrFail($id);
+        // $hospital->delete();
+
+        return redirect('/hospitals')->with('msg', 'Hospital has Been Removed from the Database');
     }
 }

@@ -68,7 +68,8 @@ class HealthWorkersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $healthWorker = HealthWorker::findOrFail($id);
+        return view('healthWorker.edit', ['healthWorker' => $healthWorker]);
     }
 
     /**
@@ -80,7 +81,14 @@ class HealthWorkersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $healthWorker = HealthWorker::find($id);
+
+        $healthWorker->name = request('name');
+        $healthWorker->hospital = request('hospital');
+
+        $healthWorker->save();
+
+        return redirect('/healthworkers')->with('msg', 'Health Worker Info has Been Updated in the Database');
     }
 
     /**
@@ -91,6 +99,9 @@ class HealthWorkersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // $healthWorker = HealthWorker::findOrFail($id);
+        // $healthWorker->delete();
+
+        return redirect('/healthworkers')->with('msg', 'A Health Officer has Been Removed from the Database');
     }
 }
