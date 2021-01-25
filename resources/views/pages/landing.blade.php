@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Covid-19 Health Worker Tracker</title>
+        <title>Covid-19 Management System</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
 
@@ -42,7 +42,7 @@
             <header>
                 <div>
                     <h3 class="float-md-start mb-0">
-                        Covid-19 Health Worker Tracker
+                        Covid-19 Management System
                     </h3>
                     <nav class="nav nav-masthead justify-content-center float-md-end">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
@@ -53,7 +53,7 @@
             </header>
 
             <main class="px-3 m-auto">
-                <h1>Covid-19 Health Worker Tracker</h1>
+                <h1>Covid-19 Management System</h1>
                 <p class="lead">
                     Cover is a one-page template for building simple and beautiful home pages. Download, 
                     edit the text, and add your own fullscreen background photo to make it your own.
