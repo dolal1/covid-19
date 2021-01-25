@@ -16,7 +16,7 @@
     
         <div class="pb-3 mb-0 small lh-sm border-bottom">
             <strong class="d-block text-gray-dark">{{$patient -> name}}</strong>
-            <p>Hospital: Mulago Hospital</p>
+            <p>Hospital: {{$patient -> hospital}}</p>
             <p>Since: {{$patient -> created_at -> format('d-m-Y')}}</p>
             <p>Symptomatic: 
                 @if($patient -> asymptomatic == 0)         
