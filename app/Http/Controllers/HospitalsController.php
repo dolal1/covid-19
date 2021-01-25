@@ -38,7 +38,14 @@ class HospitalsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $hospital = new Hospital();
+
+        $hospital->name = request('hospital');
+        $hospital->district = request('district');
+
+        $hospital->save();
+
+        return redirect('/hospitals')->with('msg', 'Hospital has Been Added to the Database');
     }
 
     /**

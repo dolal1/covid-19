@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Patient;
+use Carbon\Carbon;
 
 class PatientsController extends Controller
 {
@@ -38,7 +39,18 @@ class PatientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $patient = new Patient();
+
+        $patient->name = request('name');
+        $patient->hospital = request('hospital');
+        $patient->gender = request('gender');
+        $patient->officer = request('officer');
+        $patient->asymptomatic = request('asymptomatic');
+        $patient->date = Carbon::now()->toDateTimeString();
+
+        $patient->save();
+
+        return redirect('/patients')->with('msg', 'Patient has Been Added to the Database');
     }
 
     /**

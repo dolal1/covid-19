@@ -26,12 +26,15 @@ Route::get('/dashboard', [PagesController::class, 'dashboardPage']);
 
 Route::get('/patients', [PatientsController::class, 'index']);
 Route::get('/patients/create', [PatientsController::class, 'create']);
+Route::post('/patients', [PatientsController::class, 'store']);
 Route::get('/patients/{id}', [PatientsController::class, 'show']);
 
 Route::get('/healthworkers', [HealthWorkersController::class, 'index']);
 Route::get('/healthworkers/create', [HealthWorkersController::class, 'create']);
+Route::post('/healthworkers', [HealthWorkersController::class, 'store']);
 Route::get('/healthworkers/{id}', [HealthWorkersController::class, 'show']);
 
 Route::get('/hospitals', [HospitalsController::class, 'index']);
 Route::get('/hospitals/create', [HospitalsController::class, 'create']);
+Route::post('/hospitals', [HospitalsController::class, 'store']);
 Route::get('/hospitals/{id}', [HospitalsController::class, 'show']);

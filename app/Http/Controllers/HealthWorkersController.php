@@ -38,7 +38,14 @@ class HealthWorkersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $healthWorker = new HealthWorker;
+
+        $healthWorker->name = request('name');
+        $healthWorker->hospital = request('hospital');
+
+        $healthWorker->save();
+
+        return redirect('/healthworkers')->with('msg', 'Health Worker has Been Added to the Database');
     }
 
     /**

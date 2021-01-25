@@ -17,7 +17,7 @@ class CreateHealthWorkersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('hospital');
-            $table->string('status');
+            $table->string('status')->default('Entry Level');
             $table->timestamps();
         });
     }

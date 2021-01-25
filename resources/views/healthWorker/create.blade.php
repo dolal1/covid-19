@@ -9,7 +9,8 @@
 
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="row g-3">
-            <form class="needs-validation">
+            <form class="needs-validation" method="POST" action="/healthworkers">
+              @csrf
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="fullName" class="form-label">Full Names</label>
@@ -17,6 +18,7 @@
                     type="text"
                     class="form-control"
                     id="fullName"
+                    name="name"
                     placeholder="eg. Tony Ssemakula"
                     required
                   />
@@ -28,6 +30,7 @@
                     type="text"
                     class="form-control"
                     id="hospital"
+                    name="hospital"
                     placeholder="eg. Mulago Hospital"
                     required
                   />

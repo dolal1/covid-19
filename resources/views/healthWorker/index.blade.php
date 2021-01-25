@@ -4,8 +4,19 @@
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="lh-1">
       <h3 class="h3 mt-3 lh-1">Health Worker Page</h3>
+    <strong class="text-gray-dark"><a href="/healthworkers/create" class="nav-link active">Add Health Worker</a></strong>
     </div>
 </div>
+
+@if (session('msg'))
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ session('msg') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+@endif
+
 <div class="my-3 p-3 bg-white rounded shadow-sm">
     @foreach ($healthWorkers as $healthWorker)
     <div class="d-flex text-muted pt-3 col-8">
