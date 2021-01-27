@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Donor;
+use App\Models\Treasury;
 
 class DonorsController extends Controller
 {
@@ -15,7 +17,9 @@ class DonorsController extends Controller
     public function index()
     {
         $donors = Donor::all();
-        return view('donors.index', ['donors' => $donors]);
+
+        $totalDonations = DB::table('donors')->sum('amount');
+        return view('donors.index', ['donors' => $donors, 'totalDonations' => $totalDonations]);
     }
 
     /**
@@ -42,6 +46,19 @@ class DonorsController extends Controller
         $donor->amount = request('amount');
 
         $donor->save();
+
+        $totalDonations = DB::table('donors')->sum('amount');
+        $excess = $totalDonations - 1000000;
+
+        $treasury = Treasury::find(1);
+        $treasury->amount = $totalDonations;
+        if($excess < 1 ) {
+            $treasury->excess = 0;
+        } else {
+            $treasury->excess = $excess;
+        }
+
+        $treasury->save();
 
         return redirect('/donors')->with('msg', 'This Donation has Been Added to the Database');
     }
@@ -84,6 +101,19 @@ class DonorsController extends Controller
         $donor->amount = request('amount');
 
         $donor->save();
+        
+        $totalDonations = DB::table('donors')->sum('amount');
+        $excess = $totalDonations - 1000000;
+
+        $treasury = Treasury::find(1);
+        $treasury->amount = $totalDonations;
+        if($excess < 1 ) {
+            $treasury->excess = 0;
+        } else {
+            $treasury->excess = $excess;
+        }
+
+        $treasury->save();
 
         return redirect('/donors')->with('msg', 'This Donation Info Has Been Updated In The Database');
     }
@@ -96,8 +126,21 @@ class DonorsController extends Controller
      */
     public function destroy($id)
     {
-        // $donor = Donor::findOrFail($id);
-        // $donor->delete();
+        $donor = Donor::findOrFail($id);
+        $donor->delete();
+
+        $totalDonations = DB::table('donors')->sum('amount');
+        $excess = $totalDonations - 1000000;
+
+        $treasury = Treasury::find(1);
+        $treasury->amount = $totalDonations;
+        if($excess < 1 ) {
+            $treasury->excess = 0;
+        } else {
+            $treasury->excess = $excess;
+        }
+
+        $treasury->save();
 
         return redirect('/donors')->with('msg', 'This Donation has Been Removed from the Database');
     }

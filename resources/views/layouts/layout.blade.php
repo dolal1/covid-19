@@ -70,6 +70,9 @@
             <li class="nav-item">
               <a class="nav-link" href="/healthworkers">Health Workers</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/donors">Donations</a>
+            </li>
             <li class="nav-item dropdown">
               <a 
                 class="nav-link dropdown-toggle" 
@@ -79,11 +82,13 @@
                 data-bs-toggle="dropdown" 
                 aria-expanded="false"
               >
-                Dropdown
+                Like its Hot
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="/donors/create">Add Donation</a></li>
+                <li><a class="dropdown-item" href="/hospitals/create">Add Hospital</a></li>
+                <li><a class="dropdown-item" href="#">Add District</a></li>
+                <li><a class="dropdown-item" href="/healthworkers/create">Add Health Workers</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
