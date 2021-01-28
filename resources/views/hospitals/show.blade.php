@@ -16,7 +16,8 @@
     
         <div class="pb-3 mb-0 small lh-sm border-bottom">
             <strong class="d-block text-gray-dark">{{$hospital -> name}}</strong>
-            <p>Since: {{$hospital -> created_at -> format('d-m-Y')}}</p>
+            <p>Added On: {{$hospital -> created_at -> format('d-m-Y')}}</p>
+            <p>District: {{$district -> name}}</p>
 
             {{-- <p>Hospital: Mulago Hospital</p>
             <p>Symptomatic: 

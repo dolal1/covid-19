@@ -16,8 +16,12 @@ class CreateHealthWorkersTable extends Migration
         Schema::create('health_workers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('hospital');
+            $table->string('username')->unique();
+            $table->foreignId('hospital_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->string('status')->default('Entry Level');
+            $table->integer('salary')->default(0);
             $table->timestamps();
         });
     }

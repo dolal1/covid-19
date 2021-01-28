@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddHospitalToPatientsTable extends Migration
+class CreateHospitalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class AddHospitalToPatientsTable extends Migration
      */
     public function up()
     {
-        Schema::table('patients', function (Blueprint $table) {
-            $table->string('hospital');
+        Schema::create('hospitals', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->foreignId('district_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ class AddHospitalToPatientsTable extends Migration
      */
     public function down()
     {
-        Schema::table('patients', function (Blueprint $table) {
-            $table->dropColumn('hospital');
-        });
+        Schema::dropIfExists('hospitals');
     }
 }

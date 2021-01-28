@@ -16,8 +16,15 @@
     
         <div class="pb-3 mb-0 small lh-sm border-bottom">
             <strong class="d-block text-gray-dark">{{$patient -> name}}</strong>
-            <p>Hospital: {{$patient -> hospital}}</p>
+            <p>Hospital: {{$hospital -> name}}</p>
             <p>Since: {{$patient -> created_at -> format('d-m-Y')}}</p>
+            <p>Gender: 
+                @if($patient -> gender == 'M')         
+                    Male
+                @else
+                    Female
+                @endif
+            </p>
             <p>Symptomatic: 
                 @if($patient -> asymptomatic == 0)         
                     No
@@ -25,7 +32,7 @@
                     Yes
                 @endif
             </p>
-            <p>Health Worker: {{$patient -> officer}}</p>
+            <p>Health Worker: {{$healthWorker -> name}}</p>
         </div>
     </div>
     <div class="mt-2 mb-5 col-8">

@@ -14,12 +14,19 @@ class CreatePatientsTable extends Migration
     public function up()
     {
         Schema::create('patients', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('name');
             $table->dateTime('date', 0);
             $table->boolean('asymptomatic');
             $table->string('gender');
-            $table->string('officer');
+            $table->foreignId('healthWorker_id')
+                ->references('id')
+                ->on('health_workers')
+                ->onDelete('cascade');
+            $table->foreignId('hospital_id')
+                ->references('id')
+                ->on('hospitals')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

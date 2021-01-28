@@ -27,47 +27,31 @@
 
                 <div class="col-sm-6">
                   <label for="hospital" class="form-label">Hospital</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="hospital"
-                    name="hospital"
-                    placeholder="eg. Mulago Hospital"
-                    required
-                  />
+                  <select class="form-select" name="hospital" aria-label="Select Hospital" required>
+                    <option value="">Please select Hospital from Below</option>
+                    @foreach ($hospitals as $hospital)
+                      <option value={{$hospital->id}}>{{ $hospital->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
 
                 <div class="col-md-6">
-                  <label for="district" class="form-label">District</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="district"
-                    name="district"
-                    placeholder="eg. Kampala"
-                    required
-                  />
-                </div>
-
-                <div class="col-md-3">
                   <label for="gender" class="form-label">Gender</label>
                     <select class="form-select" name="gender" aria-label="Select Gender">
-                        <option selected>Select Gender</option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
+                        <option value="">Select Gender</option>
+                        <option value="F">Female</option>
+                        <option value="M">Male</option>
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
                   <label for="healthWorker" class="form-label">Health Worker</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="healthWorker"
-                    name="officer"
-                    placeholder=""
-                    required
-                  />
+                  <select class="form-select" name="healthWorker_id" aria-label="Select Health Worker" required>
+                    <option value="">Please Select Health Worker from Below</option>
+                    @foreach ($healthworkers as $healthworker)
+                      <option value={{$healthworker->id}}>{{ $healthworker->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div> 
 

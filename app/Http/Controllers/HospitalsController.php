@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hospital;
+use App\Models\District;
 
 class HospitalsController extends Controller
 {
@@ -27,7 +28,8 @@ class HospitalsController extends Controller
      */
     public function create()
     {
-        return view('hospitals.create');
+        $districts = District::all();
+        return view('hospitals.create', ['districts' => $districts]);
     }
 
     /**
@@ -41,11 +43,12 @@ class HospitalsController extends Controller
         $hospital = new Hospital();
 
         $hospital->name = request('hospital');
-        $hospital->district = request('district');
+        $hospital->district_id = request('district');
 
         $hospital->save();
 
-        return redirect('/hospitals')->with('msg', 'Hospital has Been Added to the Database');
+        $name = $hospital->name;
+        return redirect('/hospitals')->with('msg', "$name has Been Added to the Database");
     }
 
     /**
@@ -57,7 +60,9 @@ class HospitalsController extends Controller
     public function show($id)
     {
         $hospital = Hospital::findOrFail($id);
-        return view('hospitals.show', ['hospital' => $hospital]);
+        $district = District::findOrFail($hospital->district_id);
+
+        return view('hospitals.show', ['hospital' => $hospital, 'district' => $district]);
     }
 
     /**
@@ -69,7 +74,9 @@ class HospitalsController extends Controller
     public function edit($id)
     {
         $hospital = Hospital::findOrFail($id);
-        return view('hospitals.edit', ['hospital' => $hospital]);
+        $districts = District::all();
+        $orignalDistrict = District::findOrFail($hospital->district_id);
+        return view('hospitals.edit', ['hospital' => $hospital, 'districts' => $districts,'orignalDistrict' => $orignalDistrict]);
     }
 
     /**
@@ -84,11 +91,12 @@ class HospitalsController extends Controller
         $hospital = Hospital::find($id);
 
         $hospital->name = request('hospital');
-        $hospital->district = request('district');
+        $hospital->district_id = request('district');
 
         $hospital->save();
 
-        return redirect('/hospitals')->with('msg', 'Hospital Info has Been Updated in the Database');
+        $name = $hospital->name;
+        return redirect('/hospitals')->with('msg', "$name has Been Updated in the Database");
     }
 
     /**
@@ -99,9 +107,10 @@ class HospitalsController extends Controller
      */
     public function destroy($id)
     {
-        // $hospital = Hospital::findOrFail($id);
-        // $hospital->delete();
+        $hospital = Hospital::findOrFail($id);
+        $name = $hospital->name;
+        $hospital->delete();
 
-        return redirect('/hospitals')->with('msg', 'Hospital has Been Removed from the Database');
+        return redirect('/hospitals')->with('msg', "$name has Been Removed from the Database");
     }
 }

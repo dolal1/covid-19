@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HealthWorker;
+use App\Models\Hospital;
 
 class HealthWorkersController extends Controller
 {
@@ -27,7 +28,8 @@ class HealthWorkersController extends Controller
      */
     public function create()
     {
-        return view('healthWorker.create');
+        $hospitals = Hospital::all();
+        return view('healthWorker.create', ['hospitals' => $hospitals]);
     }
 
     /**
@@ -38,14 +40,28 @@ class HealthWorkersController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'name' => 'required',
+            'username' => "required|unique:health_workers,username,$id",
+            'hospital' => 'required',
+        ];
+
+        $customMessages = [
+            'required' => 'The :attribute field is required.',
+            'username' => "This username, :attribute, has already been used",
+        ];
+
+        $this->validate($request, $rules, $customMessages);
+
         $healthWorker = new HealthWorker;
 
         $healthWorker->name = request('name');
-        $healthWorker->hospital = request('hospital');
+        $healthWorker->username = request('username');
+        $healthWorker->hospital_id = request('hospital');
 
         $healthWorker->save();
-
-        return redirect('/healthworkers')->with('msg', 'Health Worker has Been Added to the Database');
+        $name = $healthWorker->name;
+        return redirect('/healthworkers')->with('msg', "$name has Been Added.");
     }
 
     /**
@@ -57,7 +73,8 @@ class HealthWorkersController extends Controller
     public function show($id)
     {
         $healthWorker = HealthWorker::findOrFail($id);
-        return view('healthWorker.show', ['healthWorker' => $healthWorker]);
+        $hospital = Hospital::findOrFail($healthWorker->hospital_id);
+        return view('healthWorker.show', ['healthWorker' => $healthWorker, 'hospital' => $hospital]);
     }
 
     /**
@@ -69,7 +86,10 @@ class HealthWorkersController extends Controller
     public function edit($id)
     {
         $healthWorker = HealthWorker::findOrFail($id);
-        return view('healthWorker.edit', ['healthWorker' => $healthWorker]);
+        $hospital = Hospital::findOrFail($healthWorker->hospital_id);
+        $hospitals = Hospital::all();
+
+        return view('healthWorker.edit', ['healthWorker' => $healthWorker, 'hospitals' => $hospitals, 'hospital' => $hospital]);
     }
 
     /**
@@ -81,14 +101,27 @@ class HealthWorkersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'name' => 'required',
+            'username' => "required|unique:health_workers,username,$id",
+            'hospital' => 'required',
+        ];
+
+        $customMessages = [
+            'required' => 'The :attribute field is required.',
+            'username' => "This username, :attribute, has already been used",
+        ];
+
+        $this->validate($request, $rules, $customMessages);
         $healthWorker = HealthWorker::find($id);
 
         $healthWorker->name = request('name');
-        $healthWorker->hospital = request('hospital');
+        $healthWorker->username = request('username');
+        $healthWorker->hospital_id = request('hospital');
 
         $healthWorker->save();
-
-        return redirect('/healthworkers')->with('msg', 'Health Worker Info has Been Updated in the Database');
+        $name = $healthWorker->name;
+        return redirect('/healthworkers')->with('msg', "$name has Been Updated.");
     }
 
     /**
@@ -99,8 +132,8 @@ class HealthWorkersController extends Controller
      */
     public function destroy($id)
     {
-        // $healthWorker = HealthWorker::findOrFail($id);
-        // $healthWorker->delete();
+        $healthWorker = HealthWorker::findOrFail($id);
+        $healthWorker->delete();
 
         return redirect('/healthworkers')->with('msg', 'A Health Officer has Been Removed from the Database');
     }

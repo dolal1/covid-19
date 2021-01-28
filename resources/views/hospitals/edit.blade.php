@@ -4,6 +4,7 @@
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="lh-1">
       <h3 class="h3 mt-3 lh-1">Edit Hospital</h3>
+      <a class="btn btn-outline-primary" href="/hospitals/{{ $hospital -> id }}" >Go Back.</a>
     </div>
 </div>
 
@@ -27,15 +28,12 @@
             </div>
             <div class="col-sm-6">
                 <label for="district" class="form-label">District</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="district"
-                    name="district"
-                    value="{{ $hospital->district }}"
-                    placeholder="eg. Kampala"
-                    required
-                />
+                <select class="form-select" name="district" aria-label="Select Distict" required>
+                    <option value={{$orignalDistrict->id}}>{{$orignalDistrict->name}} - Original</option>
+                    @foreach ($districts as $district)
+                    <option value={{$district->id}}>{{ $district->name}}</option>
+                    @endforeach
+                </select>
             </div>
             <hr class="my-4" />
             <button class="btn btn-primary btn-lg" type="submit">

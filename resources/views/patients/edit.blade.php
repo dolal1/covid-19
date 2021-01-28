@@ -29,37 +29,31 @@
 
                 <div class="col-sm-6">
                   <label for="hospital" class="form-label">Hospital</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="hospital"
-                    name="hospital"
-                    value='{{ $patient->hospital }}'
-                    defaultValue='{{ $patient->hospital }}'
-                    required
-                  />
+                  <select class="form-select" name="hospital_id" aria-label="Select Hospital" required>
+                    <option value={{$hospital->id}} selected>{{$hospital->name}} - Original</option>
+                    @foreach ($hospitals as $hospital)
+                      <option value={{$hospital->id}}>{{ $hospital->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
 
                 <div class="col-md-6">
                   <label for="gender" class="form-label">Gender</label>
-                    <select class="form-select" name="gender" aria-label={{ $patient->gender }} required >
-                        <option selected value="{{ $patient -> gender }}">{{ $patient->gender }}</option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
+                    <select class="form-select" name="gender" aria-label="Select Gender">
+                        <option value={{ $patient->gender }} selected>{{ $patient->gender }}</option>
+                        <option value="F">Female</option>
+                        <option value="M">Male</option>
                     </select>
                 </div>
 
                 <div class="col-md-6">
                   <label for="healthWorker" class="form-label">Health Worker</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="healthWorker"
-                    name="officer"
-                    value='{{ $patient->officer }}'
-                    defaultValue={{ $patient->officer }}
-                    required
-                  />
+                  <select class="form-select" name="healthWorker_id" aria-label="Select Health Worker" required>
+                    <option value={{$healthWorker->id}} selected>{{$healthWorker->name}} - Original</option>
+                    @foreach ($healthWorkers as $healthworker)
+                      <option value={{$healthworker->id}}>{{ $healthworker->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div> 
 

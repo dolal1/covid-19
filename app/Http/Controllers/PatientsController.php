@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Patient;
+use App\Models\Hospital;
+use App\Models\HealthWorker;
 use Carbon\Carbon;
 
 class PatientsController extends Controller
@@ -28,7 +30,9 @@ class PatientsController extends Controller
      */
     public function create()
     {
-        return view('patients.create');
+        $hospitals = Hospital::all();
+        $healtworkers = HealthWorker::all();
+        return view('patients.create', ['hospitals' => $hospitals, 'healthworkers' => $healtworkers]);
     }
 
     /**
@@ -42,15 +46,15 @@ class PatientsController extends Controller
         $patient = new Patient();
 
         $patient->name = request('name');
-        $patient->hospital = request('hospital');
+        $patient->hospital_id = request('hospital');
         $patient->gender = request('gender');
-        $patient->officer = request('officer');
+        $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');
         $patient->date = Carbon::now()->toDateTimeString();
 
         $patient->save();
-
-        return redirect('/patients')->with('msg', 'Patient has Been Added to the Database');
+        $name = $patient->name;
+        return redirect('/patients')->with('msg', "$name has Been Added.");
     }
 
     /**
@@ -62,7 +66,9 @@ class PatientsController extends Controller
     public function show($id)
     {
         $patient = Patient::findOrFail($id);
-        return view('patients.show', ['patient' => $patient]);
+        $hospital = Hospital::findOrFail($patient->hospital_id);
+        $healthWorker = HealthWorker::findOrFail($patient->healthWorker_id);
+        return view('patients.show', ['patient' => $patient, 'hospital' => $hospital, 'healthWorker' => $healthWorker]);
     }
 
     /**
@@ -74,7 +80,12 @@ class PatientsController extends Controller
     public function edit($id)
     {
         $patient = Patient::findOrFail($id);
-        return view('patients.edit', ['patient' => $patient]);
+        $hospitals = Hospital::all();
+        $allHealthWorkers = HealthWorker::all();
+        $hospital = Hospital::findOrFail($patient->hospital_id);
+        $selectedHealthWorker = HealthWorker::findOrFail($patient->healthWorker_id);
+
+        return view('patients.edit', ['patient' => $patient, 'hospital' => $hospital, 'healthWorker' => $selectedHealthWorker, 'hospitals' => $hospitals, 'healthWorkers' => $allHealthWorkers]);
     }
 
     /**
@@ -89,14 +100,15 @@ class PatientsController extends Controller
         $patient = Patient::find($id);
 
         $patient->name = request('name');
-        $patient->hospital = request('hospital');
+        $patient->hospital_id = request('hospital_id');
         $patient->gender = request('gender');
-        $patient->officer = request('officer');
+        $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');
 
         $patient->save();
 
-        return redirect('/patients')->with('msg', 'Patient Info has Been Updated in the Database');
+        $name = $patient->name;
+        return redirect('/patients')->with('msg', "$name has Been Updated.");
     }
 
     /**
@@ -107,9 +119,11 @@ class PatientsController extends Controller
      */
     public function destroy($id)
     {
-        // $patient = Patient::findOrFail($id);
-        // $patient->delete();
+        $patient = Patient::findOrFail($id);
+        $name = $patient->name;
 
-        return redirect('/patients')->with('msg', 'Patient has Been Removed from the Database');
+        $patient->delete();
+
+        return redirect('/patients')->with('msg', "$name has Been Deleted.");
     }
 }

@@ -46,7 +46,7 @@
     </div>
     
     <small class="d-block text-end mt-3">
-      <a href="#">All updates</a>
+      <a href="/patients">All updates</a>
     </small>
   </div>
 
@@ -101,7 +101,7 @@
       </div>
     </div>
     <small class="d-block text-end mt-3">
-      <a href="#">All suggestions</a>
+      <a href="/healthworkers">All Health Workers</a>
     </small>
   </div>
 @endsection

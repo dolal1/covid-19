@@ -25,14 +25,12 @@
             </div>
             <div class="col-sm-6">
                 <label for="district" class="form-label">District</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="district"
-                    name="district"
-                    placeholder="eg. Kampala"
-                    required
-                />
+                <select class="form-select" name="district" aria-label="Select Distict" required>
+                    <option value="">Please select Below</option>
+                    @foreach ($districts as $district)
+                    <option value={{$district->id}}>{{ $district->name}}</option>
+                    @endforeach
+                </select>
             </div>
             <hr class="my-4" />
             <button class="btn btn-primary btn-lg" type="submit">
