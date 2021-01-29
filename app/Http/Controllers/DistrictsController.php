@@ -38,10 +38,10 @@ class DistrictsController extends Controller
     {
         $district = new District();
 
-        $district->name = request('name');
+        $district->name = $name = request('name');
 
         $district->save();
-        return redirect('/districts')->with('msg', 'This District has Been Added to the Database');
+        return redirect('/districts')->with('msg', "$name has Been Added to the Database");
     }
 
     /**
@@ -78,10 +78,10 @@ class DistrictsController extends Controller
     {
         $district = District::findOrFail($id);
 
-        $district->name = request('name');
+        $district->name = $name = request('name');
 
         $district->save();
-        return redirect('/districts')->with('msg', 'This District has Been Updated in the Database');
+        return redirect('/districts')->with('msg', "$name has Been Updated");
     }
 
     /**
@@ -93,8 +93,10 @@ class DistrictsController extends Controller
     public function destroy($id)
     {
         $district = District::findOrFail($id);
+        $name = $district->name;
+
         $district->delete();
 
-        return redirect('/districts')->with('msg', 'District has Been Deleted from the Database');
+        return redirect('/districts')->with('msg', "$name has Been Deleted");
     }
 }

@@ -19,6 +19,8 @@ class CreateHospitalsTable extends Migration
             $table->foreignId('district_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->integer('patientNo')->default(0);
+            $table->integer('workersNo')->default(0);
             $table->timestamps();
         });
     }

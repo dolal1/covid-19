@@ -46,13 +46,17 @@ class PatientsController extends Controller
         $patient = new Patient();
 
         $patient->name = request('name');
-        $patient->hospital_id = request('hospital');
+        $patient->hospital_id = $hospital = Hospital::find(request('healthWorker_id'))->id;
         $patient->gender = request('gender');
         $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');
         $patient->date = Carbon::now()->toDateTimeString();
 
         $patient->save();
+
+        ++$hospital->patientNo;
+        $hospital->save();
+
         $name = $patient->name;
         return redirect('/patients')->with('msg', "$name has Been Added.");
     }
@@ -100,7 +104,7 @@ class PatientsController extends Controller
         $patient = Patient::find($id);
 
         $patient->name = request('name');
-        $patient->hospital_id = request('hospital_id');
+        $patient->hospital_id = Hospital::find(request('healthWorker_id'))->id;
         $patient->gender = request('gender');
         $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');
@@ -120,9 +124,14 @@ class PatientsController extends Controller
     public function destroy($id)
     {
         $patient = Patient::findOrFail($id);
+        $hospital = $patient->hospital_id;
         $name = $patient->name;
 
         $patient->delete();
+
+        $hospital = Hospital::find($hospital);
+        --$hospital->patientNo;
+        $hospital->save();
 
         return redirect('/patients')->with('msg', "$name has Been Deleted.");
     }

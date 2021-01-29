@@ -9,6 +9,10 @@ class Patient extends Model
 {
     use HasFactory;
 
+    public function hospital () {
+        return $this->belongsTo('App\Models\Hospital');
+    }
+
     public function healthWorker () {
         return $this->belongsTo('App\Models\HealthWorker');
     }

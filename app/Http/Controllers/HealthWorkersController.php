@@ -61,6 +61,11 @@ class HealthWorkersController extends Controller
         $healthWorker->hospital_id = request('hospital');
 
         $healthWorker->save();
+        
+        $hospital = Hospital::find(request('hospital'));
+        ++$hospital->workersNo;
+        $hospital->save();
+
         $name = $healthWorker->name;
         return redirect('/healthworkers')->with('msg', "$name has Been Added.");
     }
@@ -102,6 +107,7 @@ class HealthWorkersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $username = request('username');
         $rules = [
             'name' => 'required',
             'username' => "required|unique:health_workers,username,$id",
@@ -110,7 +116,7 @@ class HealthWorkersController extends Controller
 
         $customMessages = [
             'required' => 'The :attribute field is required.',
-            'unique' => "This username, :attribute, has already been used",
+            'unique' => "This username, $username, has already been used by another user.",
         ];
 
         $this->validate($request, $rules, $customMessages);
@@ -134,7 +140,11 @@ class HealthWorkersController extends Controller
     public function destroy($id)
     {
         $healthWorker = HealthWorker::findOrFail($id);
+        $hospital = $healthWorker->hospital_id;
         $healthWorker->delete();
+        
+        --$hospital->workersNo;
+        $hospital->save();
 
         return redirect('/healthworkers')->with('msg', 'A Health Officer has Been Removed from the Database');
     }

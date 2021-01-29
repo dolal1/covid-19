@@ -14,10 +14,11 @@
             <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
         </svg>
     
-        <div class="pb-3 mb-0 small lh-sm border-bottom">
+        <div class="pb-3 mb-0 lh-sm border-bottom">
             <strong class="d-block text-gray-dark">{{$hospital -> name}}</strong>
-            <p>Added On: {{$hospital -> created_at -> format('d-m-Y')}}</p>
-            <p>District: {{$district -> name}}</p>
+            <p>Added On: <strong>{{$hospital -> created_at -> format('d-m-Y')}}</strong></p>
+            <p>District: <strong>{{$district -> name}}</strong></p>
+            <p>Number Of Patients: <strong>{{$hospital -> patientNo}}</strong></p>
 
             {{-- <p>Hospital: Mulago Hospital</p>
             <p>Symptomatic: 

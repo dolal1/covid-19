@@ -9,11 +9,11 @@
 
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="row g-3">
-          <div class="col-md-7 col-lg-8">
+          <div class="col-md-10 col-lg-8">
             <form class="needs-validation" method="POST" action="/patients">
               @csrf
               <div class="row g-3">
-                <div class="col-sm-6">
+                <div class="col-md-6">
                   <label for="fullName" class="form-label">Full Name</label>
                   <input
                     type="text"
@@ -25,12 +25,12 @@
                   />
                 </div>
 
-                <div class="col-sm-6">
-                  <label for="hospital" class="form-label">Hospital</label>
-                  <select class="form-select" name="hospital" aria-label="Select Hospital" required>
-                    <option value="">Please select Hospital from Below</option>
-                    @foreach ($hospitals as $hospital)
-                      <option value={{$hospital->id}}>{{ $hospital->name}}</option>
+                <div class="col-md-6">
+                  <label for="healthWorker" class="form-label">Health Worker</label>
+                  <select class="form-select" name="healthWorker_id" aria-label="Select Health Worker" required>
+                    <option value="">Please Select Health Worker from Below</option>
+                    @foreach ($healthworkers as $healthworker)
+                      <option value={{$healthworker->id}}>{{ $healthworker->name}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -43,27 +43,17 @@
                         <option value="M">Male</option>
                     </select>
                 </div>
-
-                <div class="col-md-6">
-                  <label for="healthWorker" class="form-label">Health Worker</label>
-                  <select class="form-select" name="healthWorker_id" aria-label="Select Health Worker" required>
-                    <option value="">Please Select Health Worker from Below</option>
-                    @foreach ($healthworkers as $healthworker)
-                      <option value={{$healthworker->id}}>{{ $healthworker->name}}</option>
-                    @endforeach
-                  </select>
-                </div>
               </div> 
 
               <div class="my-3 ">
-                 <label for="asymptomatic" class="form-label">Is Asymptomatic?</label>
-                 <div class="form-check">
-                     <input id="yes" name="asymptomatic" value="1" type="radio" class="form-check-input" required>
-                     <label class="form-check-label" for="yes">Yes</label>
-                 </div>
-                 <div class="form-check">
-                     <input id="no" name="asymptomatic" value="0" type="radio" class="form-check-input" required>
-                     <label class="form-check-label" for="no">No</label>
+                <label for="asymptomatic" class="form-label">Is Asymptomatic?</label>
+                <div class="form-check">
+                    <input id="yes" name="asymptomatic" value="1" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="yes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input id="no" name="asymptomatic" value="0" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="no">No</label>
                </div>
             </div>
               <hr class="my-4" />

@@ -20,6 +20,7 @@ class CreateHealthWorkersTable extends Migration
             $table->foreignId('hospital_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->integer('patientNo')->default(0);
             $table->string('status')->default('Entry Level');
             $table->integer('salary')->default(0);
             $table->timestamps();

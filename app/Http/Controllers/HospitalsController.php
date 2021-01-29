@@ -63,6 +63,8 @@ class HospitalsController extends Controller
         $hospital = Hospital::findOrFail($id);
         $district = District::findOrFail($hospital->district_id);
 
+        error_log(count($hospital->patients));
+
         return view('hospitals.show', ['hospital' => $hospital, 'district' => $district]);
     }
 

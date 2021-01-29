@@ -31,9 +31,9 @@
                     id="amount"
                     name="amount"
                     class="form-control"
-                    min="50000.00"
-                    step="50000.00"
-                    value="50000.00"
+                    min="50000000.00"
+                    step="1000000.00"
+                    value="50000000.00"
                     required
                   />
                 </div>
