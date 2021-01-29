@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\District;
+use App\Models\Patients;
 
 class HospitalsController extends Controller
 {

@@ -40,15 +40,16 @@ class HealthWorkersController extends Controller
      */
     public function store(Request $request)
     {
+        $username = request('username');
         $rules = [
             'name' => 'required',
-            'username' => "required|unique:health_workers,username,$id",
+            'username' => "required|unique:health_workers,username",
             'hospital' => 'required',
         ];
 
         $customMessages = [
             'required' => 'The :attribute field is required.',
-            'username' => "This username, :attribute, has already been used",
+            'unique' => "This username, $username, has already been used",
         ];
 
         $this->validate($request, $rules, $customMessages);
@@ -109,7 +110,7 @@ class HealthWorkersController extends Controller
 
         $customMessages = [
             'required' => 'The :attribute field is required.',
-            'username' => "This username, :attribute, has already been used",
+            'unique' => "This username, :attribute, has already been used",
         ];
 
         $this->validate($request, $rules, $customMessages);
