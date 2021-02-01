@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\HealthWorker;
+use App\Models\Healthworker;
 
-class HealthWorkerSeeder extends Seeder
+class HealthworkerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class HealthWorkerSeeder extends Seeder
      */
     public function run()
     {
-        HealthWorker::create([
+        Healthworker::create([
             'name'  => 'Collin Doki',
             'username'  => 'collindoki',
             'hospital_id'=> 1,

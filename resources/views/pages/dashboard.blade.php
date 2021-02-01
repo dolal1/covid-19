@@ -4,65 +4,48 @@
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="lh-1">
       <h3 class="h3 mb-0 lh-1">Total Cases</h3>
-      <p>2011</p>
+      <p>201</p>
     </div>
   </div>
 
-  <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Recent Case Updates</h6>
+<div class="my-3 p-3 bg-white rounded shadow-sm col-10">
+    <h6 class="border-bottom pb-2 mb-0">Patients</h6>
+  @if (count($patients) > 0)
+  @foreach ($patients as $patient)
+  <div class="d-flex text-muted pt-3">
+    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="40" height="40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
 
-    <div class="d-flex text-muted pt-3">
-            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
-                role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#e83e8c" /><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text>
-            </svg>
-
-    
-        <div class="pb-3 mb-0 small lh-sm border-bottom">
-            <strong class="d-block text-gray-dark">Tony Semakula</strong>
-            <p>Hospital: Mulago Hospital</p>
-            <p>Since: October 3</p>
-            <p>Symptomatic: Yes</p>
-            <p>Health Worker: Collin</p>
-    
-        </div>
+    <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+      <div class="container d-flex justify-content-between">
+        <strong class="text-gray-dark">{{ $patient -> name}}</strong>
+        <a class="btn btn-outline-info btn-sm" href="/patients/{{$patient -> id}}">Follow Up</a>
+      </div>
+      <span class="container d-block">{{ $patient -> officer}}</span>
     </div>
-    <div class="d-flex text-muted pt-3">
-        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
-            role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
-        </svg>
-    
-        <div class="pb-3 mb-0 small lh-sm border-bottom">
-            <strong class="d-block text-gray-dark">Tony Semakula</strong>
-            <p>Hospital: Mulago Hospital</p>
-            <p>Since: October 3</p>
-            <p>Symptomatic: Yes</p>
-            <p>Health Worker: Collin</p>
-    
-        </div>
-    </div>
-    
-    <small class="d-block text-end mt-3">
-      <a href="/patients">All updates</a>
-    </small>
   </div>
+  @endforeach
+  <small class="d-block text-end mt-3">
+    <a href="/patients">All Patients</a>
+  </small>
+  @else
+  <div class="d-flex text-muted pt-3">
+    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="40" height="40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
 
-  <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Health Workers</h6>
-    <div class="d-flex text-muted pt-3">
-      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-
-      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-        <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">Collin Otim</strong>
-          <a href="#">Follow</a>
-        </div>
-        <span class="d-block">@collinO</span>
+    <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+      <div class="container d-flex justify-content-between">
+        <strong class="text-gray-dark">No Patients</strong>
       </div>
     </div>
+  </div>
+  <small class="d-block text-end mt-3">
+    <a href="/patients/create">Add Patients</a>
+  </small>
+  @endif
+</div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm col-10">
+    <h6 class="border-bottom pb-2 mb-0">Health Workers</h6>
+    @foreach ($healthWorkers as $healthWorker)
     <div class="d-flex text-muted pt-3">
         <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
             role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -72,36 +55,39 @@
     
         <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
             <div class="d-flex justify-content-between">
-                <strong class="text-gray-dark">Collin Otim</strong>
-                <a href="#">Follow</a>
+                <strong class="text-gray-dark">{{ $healthWorker -> name}}</strong>
+                <a class="btn btn-outline-info btn-sm" href="/healthworkers/{{ $healthWorker -> id}}">Follow Up</a>
             </div>
-            <span class="d-block">@collinO</span>
+            <span class="d-block">@ {{ $healthWorker -> username}}</span>
         </div>
     </div>
-    <div class="d-flex text-muted pt-3">
-      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-
-      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-        <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">Full Name</strong>
-          <a href="#">Follow</a>
-        </div>
-        <span class="d-block">@username</span>
-      </div>
-    </div>
-    <div class="d-flex text-muted pt-3">
-      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-
-      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-        <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">Full Name</strong>
-          <a href="#">Follow</a>
-        </div>
-        <span class="d-block">@username</span>
-      </div>
-    </div>
+    @endforeach
     <small class="d-block text-end mt-3">
       <a href="/healthworkers">All Health Workers</a>
+    </small>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm col-10">
+    <h6 class="border-bottom pb-2 mb-0">Hospitals</h6>
+    @foreach ($hospitals as $hospital)
+    <div class="d-flex text-muted pt-3">
+        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
+            role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+        </svg>
+    
+        <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+            <div class="d-flex justify-content-between">
+                <strong class="text-gray-dark">{{ $hospital -> name}}</strong>
+                <a class="btn btn-outline-info btn-sm" href="/hospitals/{{ $hospital -> id}}">Follow Up</a>
+            </div>
+            {{-- <span class="d-block">@ {{ $hospital -> username}}</span> --}}
+        </div>
+    </div>
+    @endforeach
+    <small class="d-block text-end mt-3">
+      <a href="/hospitals">All Hospitals</a>
     </small>
   </div>
 @endsection

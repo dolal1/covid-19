@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Hospital;
-use App\Models\HealthWorker;
+use App\Models\Healthworker;
 use Carbon\Carbon;
 
 class PatientsController extends Controller
@@ -46,7 +46,7 @@ class PatientsController extends Controller
         $patient = new Patient();
 
         $patient->name = request('name');
-        $patient->hospital_id = $hospital = Hospital::find(request('healthWorker_id'))->id;
+        $patient->hospital_id = Hospital::find(request('healthWorker_id'))->id;
         $patient->gender = request('gender');
         $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');
@@ -54,6 +54,7 @@ class PatientsController extends Controller
 
         $patient->save();
 
+        $hospital = Hospital::find(request('healthWorker_id'));
         ++$hospital->patientNo;
         $hospital->save();
 

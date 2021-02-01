@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\HospitalsController;
 use App\Http\Controllers\PatientsController;
-use App\Http\Controllers\HealthWorkersController;
+use App\Http\Controllers\HealthworkersController;
 use App\Http\Controllers\DonorsController;
 use App\Http\Controllers\DistrictsController;
 
@@ -34,13 +34,13 @@ Route::get('/patients/{id}/edit', [PatientsController::class, 'edit']);
 Route::patch('/patients/{id}', [PatientsController::class, 'update']);
 Route::delete('/patients/{id}', [PatientsController::class, 'destroy']);
 
-Route::get('/healthworkers', [HealthWorkersController::class, 'index']);
-Route::get('/healthworkers/create', [HealthWorkersController::class, 'create']);
-Route::post('/healthworkers', [HealthWorkersController::class, 'store']);
-Route::get('/healthworkers/{id}', [HealthWorkersController::class, 'show']);
-Route::get('/healthworkers/{id}/edit', [HealthWorkersController::class, 'edit']);
-Route::patch('/healthworkers/{id}', [HealthWorkersController::class, 'update']);
-Route::delete('/healthworkers/{id}', [HealthWorkersController::class, 'destroy']);
+Route::get('/healthworkers', [HealthworkersController::class, 'index']);
+Route::get('/healthworkers/create', [HealthworkersController::class, 'create']);
+Route::post('/healthworkers', [HealthworkersController::class, 'store']);
+Route::get('/healthworkers/{id}', [HealthworkersController::class, 'show']);
+Route::get('/healthworkers/{id}/edit', [HealthworkersController::class, 'edit']);
+Route::patch('/healthworkers/{id}', [HealthworkersController::class, 'update']);
+Route::delete('/healthworkers/{id}', [HealthworkersController::class, 'destroy']);
 
 Route::get('/hospitals', [HospitalsController::class, 'index']);
 Route::get('/hospitals/create', [HospitalsController::class, 'create']);

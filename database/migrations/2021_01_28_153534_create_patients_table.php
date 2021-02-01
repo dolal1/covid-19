@@ -21,7 +21,7 @@ class CreatePatientsTable extends Migration
             $table->string('gender');
             $table->foreignId('healthWorker_id')
                 ->references('id')
-                ->on('health_workers')
+                ->on('healthworkers')
                 ->onDelete('cascade');
             $table->foreignId('hospital_id')
                 ->references('id')

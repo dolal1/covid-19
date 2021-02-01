@@ -18,6 +18,11 @@
       crossorigin="anonymous"
     >
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    >
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -54,13 +59,13 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
             <li class="nav-item active">
               <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a class="nav-link" href="#">Notifications</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
               <a class="nav-link" href="/patients">Patients</a>
             </li>
@@ -85,13 +90,14 @@
                 data-bs-toggle="dropdown" 
                 aria-expanded="false"
               >
-                Like its Hot
+                <i class="fa fa-plus-square"></i>
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/donors/create">Add Donation</a></li>
+                <li><a class="dropdown-item" href="/patients/create">Add Patient</a></li>
+                <li><a class="dropdown-item" href="/healthworkers/create">Add Health Workers</a></li>
                 <li><a class="dropdown-item" href="/hospitals/create">Add Hospital</a></li>
                 <li><a class="dropdown-item" href="/districts/create">Add District</a></li>
-                <li><a class="dropdown-item" href="/healthworkers/create">Add Health Workers</a></li>
+                <li><a class="dropdown-item" href="/donors/create">Add Donation</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>

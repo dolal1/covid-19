@@ -17,6 +17,7 @@ class HospitalSeeder extends Seeder
         Hospital::create([
             'name'  => 'Makerere Hospital',
             'district_id'=> 1,
+            'workersNo'=>1
         ]);
     }
 }

@@ -14,6 +14,6 @@ class Patient extends Model
     }
 
     public function healthWorker () {
-        return $this->belongsTo('App\Models\HealthWorker');
+        return $this->belongsTo('App\Models\Healthworker');
     }
 }

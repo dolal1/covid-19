@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\HealthWorker;
+use App\Models\Healthworker;
 use App\Models\Hospital;
 
-class HealthWorkersController extends Controller
+class HealthworkersController extends Controller
 {
     /**
      * Display a listing of the resource.
