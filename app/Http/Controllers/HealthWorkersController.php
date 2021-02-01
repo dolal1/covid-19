@@ -54,7 +54,7 @@ class HealthworkersController extends Controller
 
         $this->validate($request, $rules, $customMessages);
 
-        $healthWorker = new HealthWorker;
+        $healthWorker = new Healthworker;
 
         $healthWorker->name = request('name');
         $healthWorker->username = request('username');
