@@ -31,7 +31,7 @@ class PatientsController extends Controller
     public function create()
     {
         $hospitals = Hospital::all();
-        $healtworkers = HealthWorker::all();
+        $healtworkers = Healthworker::all();
         return view('patients.create', ['hospitals' => $hospitals, 'healthworkers' => $healtworkers]);
     }
 
@@ -76,7 +76,7 @@ class PatientsController extends Controller
     {
         $patient = Patient::findOrFail($id);
         $hospital = Hospital::findOrFail($patient->hospital_id);
-        $healthWorker = HealthWorker::findOrFail($patient->healthWorker_id);
+        $healthWorker = Healthworker::findOrFail($patient->healthWorker_id);
         return view('patients.show', ['patient' => $patient, 'hospital' => $hospital, 'healthWorker' => $healthWorker]);
     }
 
@@ -90,9 +90,9 @@ class PatientsController extends Controller
     {
         $patient = Patient::findOrFail($id);
         $hospitals = Hospital::all();
-        $allHealthWorkers = HealthWorker::all();
+        $allHealthWorkers = Healthworker::all();
         $hospital = Hospital::findOrFail($patient->hospital_id);
-        $selectedHealthWorker = HealthWorker::findOrFail($patient->healthWorker_id);
+        $selectedHealthWorker = Healthworker::findOrFail($patient->healthWorker_id);
 
         return view('patients.edit', ['patient' => $patient, 'hospital' => $hospital, 'healthWorker' => $selectedHealthWorker, 'hospitals' => $hospitals, 'healthWorkers' => $allHealthWorkers]);
     }

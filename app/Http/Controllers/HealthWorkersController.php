@@ -15,7 +15,7 @@ class HealthworkersController extends Controller
      */
     public function index()
     {
-        $healthWorkers = HealthWorker::all();
+        $healthWorkers = Healthworker::all();
         return view('healthWorker.index', [
             'healthWorkers' => $healthWorkers,
         ]);
@@ -78,7 +78,7 @@ class HealthworkersController extends Controller
      */
     public function show($id)
     {
-        $healthWorker = HealthWorker::findOrFail($id);
+        $healthWorker = Healthworker::findOrFail($id);
         $hospital = Hospital::findOrFail($healthWorker->hospital_id);
         return view('healthWorker.show', ['healthWorker' => $healthWorker, 'hospital' => $hospital]);
     }
@@ -91,7 +91,7 @@ class HealthworkersController extends Controller
      */
     public function edit($id)
     {
-        $healthWorker = HealthWorker::findOrFail($id);
+        $healthWorker = Healthworker::findOrFail($id);
         $hospital = Hospital::findOrFail($healthWorker->hospital_id);
         $hospitals = Hospital::all();
 
@@ -120,7 +120,7 @@ class HealthworkersController extends Controller
         ];
 
         $this->validate($request, $rules, $customMessages);
-        $healthWorker = HealthWorker::find($id);
+        $healthWorker = Healthworker::find($id);
 
         $healthWorker->name = request('name');
         $healthWorker->username = request('username');
@@ -139,7 +139,7 @@ class HealthworkersController extends Controller
      */
     public function destroy($id)
     {
-        $healthWorker = HealthWorker::findOrFail($id);
+        $healthWorker = Healthworker::findOrFail($id);
         $hospital = $healthWorker->hospital_id;
         $healthWorker->delete();
         
