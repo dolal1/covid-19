@@ -43,7 +43,7 @@ class HealthworkersController extends Controller
         $username = request('username');
         $rules = [
             'name' => 'required',
-            'username' => "required|unique:health_workers,username",
+            'username' => "required|unique:healthworkers,username",
             'hospital' => 'required',
         ];
 
@@ -110,7 +110,7 @@ class HealthworkersController extends Controller
         $username = request('username');
         $rules = [
             'name' => 'required',
-            'username' => "required|unique:health_workers,username,$id",
+            'username' => "required|unique:healthworkers,username,$id",
             'hospital' => 'required',
         ];
 
@@ -140,7 +140,7 @@ class HealthworkersController extends Controller
     public function destroy($id)
     {
         $healthWorker = Healthworker::findOrFail($id);
-        $hospital = $healthWorker->hospital_id;
+        $hospital = Hospital::find($healthWorker->hospital_id);
         $healthWorker->delete();
         
         --$hospital->workersNo;
