@@ -9,7 +9,7 @@
 
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="row g-3">
-          <div class="col-md-10 col-lg-8">
+          <div class="col-md-10 col-lg-12">
             <form class="needs-validation" method="POST" action="/patients">
               @csrf
               <div class="row g-3">
