@@ -16,6 +16,7 @@ class CreateDistrictsTable extends Migration
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('patientNo')->default(0);
             $table->timestamps();
         });
     }

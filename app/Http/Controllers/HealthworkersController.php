@@ -28,8 +28,7 @@ class HealthworkersController extends Controller
      */
     public function create()
     {
-        $hospitals = Hospital::all();
-        return view('healthWorker.create', ['hospitals' => $hospitals]);
+        return view('healthWorker.create');
     }
 
     /**
@@ -44,7 +43,7 @@ class HealthworkersController extends Controller
         $rules = [
             'name' => 'required',
             'username' => "required|unique:healthworkers,username",
-            'hospital' => 'required',
+            // 'hospital' => 'required',
         ];
 
         $customMessages = [
@@ -58,11 +57,12 @@ class HealthworkersController extends Controller
 
         $healthWorker->name = request('name');
         $healthWorker->username = request('username');
-        $healthWorker->hospital_id = request('hospital');
+
+        $hospital = Hospital::orderBy('workersNo')->first();
+        $healthWorker->hospital_id = $hospital->id;
 
         $healthWorker->save();
         
-        $hospital = Hospital::find(request('hospital'));
         ++$hospital->workersNo;
         $hospital->save();
 
