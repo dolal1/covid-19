@@ -17,5 +17,11 @@ class DistrictSeeder extends Seeder
         District::create([
             'name'  => 'Kampala',
         ]);
+        District::create([
+            'name'  => 'Wakiso',
+        ]);
+        District::create([
+            'name'  => 'Mukono',
+        ]);
     }
 }

@@ -14,7 +14,7 @@ class DistrictsController extends Controller
      */
     public function index()
     {
-        $districts = District::all();
+        $districts = District::orderBy('created_at', 'desc')->paginate(10);
         return view('districts.index', [ 'districts' => $districts ]);
     }
 

@@ -15,7 +15,7 @@ class HealthworkersController extends Controller
      */
     public function index()
     {
-        $healthWorkers = Healthworker::all();
+        $healthWorkers = Healthworker::orderBy('created_at', 'desc')->paginate(10);
         return view('healthWorker.index', [
             'healthWorkers' => $healthWorkers,
         ]);

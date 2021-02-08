@@ -20,7 +20,7 @@ class HeadOfficerSeeder extends Seeder
             $healthworker = Healthworker::where('hospital_id', '=', "$index")->first();
             $id = $healthworker->id;
             Hospital::where('id', '=' ,$index)->update([
-            'headofficer_id' => $id
+                'headofficer_id' => $id
             ]);
             ++$index;
         }

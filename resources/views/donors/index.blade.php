@@ -46,5 +46,8 @@
       </div>
     </div>
   @endforeach
+  <div class="d-flex justify-content-center pt-3">
+    {{ $donors->links("pagination::bootstrap-4") }}
+  </div>
 </div>
 @endsection

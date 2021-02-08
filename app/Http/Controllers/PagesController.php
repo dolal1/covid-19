@@ -14,9 +14,9 @@ class PagesController extends Controller
     }
 
     function dashboardPage () {
-        $healthWorkers = Healthworker::paginate(5);
-        $hospitals = Hospital::paginate(5);
-        $patients = Patient::paginate(2);
+        $healthWorkers = Healthworker::orderBy('created_at', 'desc')->paginate(6);
+        $hospitals = Hospital::orderBy('created_at', 'desc')->paginate(6);
+        $patients = Patient::orderBy('created_at', 'desc')->paginate(6);
         return view('pages.dashboard', [
             'healthWorkers' => $healthWorkers,
             'hospitals' => $hospitals,

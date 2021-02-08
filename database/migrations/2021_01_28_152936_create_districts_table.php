@@ -17,6 +17,7 @@ class CreateDistrictsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('patientNo')->default(0);
+            $table->integer('workerNo')->default(0);
             $table->timestamps();
         });
     }

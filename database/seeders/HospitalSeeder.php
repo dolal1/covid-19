@@ -19,7 +19,7 @@ class HospitalSeeder extends Seeder
         foreach (range(1, 5) as $value) {
             Hospital::create([
                 'name'  => "$faker->company Hospital",
-                'district_id'=> 1,
+                'district_id'=> $faker->numberBetween($min = 1, $max = 3),
             ]);
         }
     }

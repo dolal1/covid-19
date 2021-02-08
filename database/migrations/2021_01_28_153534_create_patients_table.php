@@ -23,10 +23,6 @@ class CreatePatientsTable extends Migration
                 ->references('id')
                 ->on('healthworkers')
                 ->onDelete('cascade');
-            $table->foreignId('hospital_id')
-                ->references('id')
-                ->on('hospitals')
-                ->onDelete('cascade');
             $table->timestamps();
         });
     }

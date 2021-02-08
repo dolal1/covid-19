@@ -17,7 +17,7 @@ class PatientsController extends Controller
      */
     public function index()
     {
-        $patients = Patient::all();
+        $patients = Patient::orderBy('created_at', 'desc')->paginate(10);
         return view('patients.index', [
             'patients' => $patients,
         ]);
@@ -31,8 +31,8 @@ class PatientsController extends Controller
     public function create()
     {
         $hospitals = Hospital::all();
-        $healtworkers = Healthworker::all();
-        return view('patients.create', ['hospitals' => $hospitals, 'healthworkers' => $healtworkers]);
+        $healthworkers = Healthworker::all();
+        return view('patients.create', ['hospitals' => $hospitals, 'healthworkers' => $healthworkers]);
     }
 
     /**
@@ -46,7 +46,6 @@ class PatientsController extends Controller
         $patient = new Patient();
 
         $patient->name = request('name');
-        $patient->hospital_id = Hospital::find(request('healthWorker_id'))->id;
         $patient->gender = request('gender');
         $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');

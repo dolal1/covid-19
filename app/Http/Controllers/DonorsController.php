@@ -16,9 +16,9 @@ class DonorsController extends Controller
      */
     public function index()
     {
-        $donors = Donor::all();
+        $donors = Donor::orderBy('created_at', 'desc')->paginate(10);
 
-        $totalDonations = DB::table('donors')->sum('amount');
+        $totalDonations = Donor::sum('amount');
         return view('donors.index', ['donors' => $donors, 'totalDonations' => $totalDonations]);
     }
 

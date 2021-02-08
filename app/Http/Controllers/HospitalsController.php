@@ -16,7 +16,7 @@ class HospitalsController extends Controller
      */
     public function index()
     {
-        $hospitals = Hospital::all();
+        $hospitals = Hospital::orderBy('created_at', 'desc')->paginate(10);
         return view('hospitals.index', [
             'hospitals' => $hospitals,
         ]);

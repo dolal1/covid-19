@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Str;
 use Faker\Factory as Faker;
 use App\Models\Healthworker;
+use App\Models\Hospital;
 
 class HealthworkerSeeder extends Seeder
 {
@@ -23,6 +23,13 @@ class HealthworkerSeeder extends Seeder
             'username'  => $faker->unique()->userName,
             'hospital_id'=> $faker->numberBetween($min = 1, $max = 5),
         ]);
+        }
+
+        $hospitals = Hospital::all();
+        foreach ($hospitals as $hospital) {
+            $healthworkerCount = Healthworker::where('hospital_id', $hospital->id)->count();
+            $hospital->workersNo = $healthworkerCount;
+            $hospital->save();
         }
     }
 }
