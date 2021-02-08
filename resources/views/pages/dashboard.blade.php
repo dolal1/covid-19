@@ -2,11 +2,17 @@
 
 @section('content')
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
-    <div class="lh-1">
-      <h3 class="h3 mb-0 lh-1">Total Cases</h3>
-      <p>201</p>
-    </div>
+  <div class="lh-1">
+    <h3 class="h3 mb-0 lh-1">Total Cases</h3>
+    <p>201</p>
   </div>
+</div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm col-10">
+  <h6 class="border-bottom pb-2 mb-0">Summary</h6>
+  <!-- Chart's container -->
+  <div id="patientChart" style="height: 300px;"></div>
+</div>
 
 <div class="my-3 p-3 bg-white rounded shadow-sm col-10">
     <h6 class="border-bottom pb-2 mb-0">Patients</h6>
@@ -90,4 +96,17 @@
       <a href="/hospitals">All Hospitals</a>
     </small>
   </div>
+@endsection
+
+@section('js')
+    <script>
+      const chart = new Chartisan({
+        el: '#patientChart',
+        url: "@chart('patients_chart')",
+        hooks: new ChartisanHooks()
+              .beginAtZero()
+              .colors()
+              .datasets([{type:'line', fill:false, borderColor:'blue'}, 'bar'])
+      });
+    </script>
 @endsection

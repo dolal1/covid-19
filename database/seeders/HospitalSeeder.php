@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 use App\Models\Hospital;
 
 class HospitalSeeder extends Seeder
@@ -14,10 +15,12 @@ class HospitalSeeder extends Seeder
      */
     public function run()
     {
-        Hospital::create([
-            'name'  => 'Makerere Hospital',
-            'district_id'=> 1,
-            'workersNo'=>1
-        ]);
+        $faker = Faker::create();
+        foreach (range(1, 5) as $value) {
+            Hospital::create([
+                'name'  => "$faker->company Hospital",
+                'district_id'=> 1,
+            ]);
+        }
     }
 }

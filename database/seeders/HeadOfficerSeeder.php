@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Healthworker;
+use App\Models\Hospital;
 
 class HeadOfficerSeeder extends Seeder
 {
@@ -14,8 +15,14 @@ class HeadOfficerSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('hospitals')->update([
-            'headofficer_id' => 1
-        ]);
+        $index = 1;
+        foreach (range(1, 5) as $value) {
+            $healthworker = Healthworker::where('hospital_id', '=', "$index")->first();
+            $id = $healthworker->id;
+            Hospital::where('id', '=' ,$index)->update([
+            'headofficer_id' => $id
+            ]);
+            ++$index;
+        }
     }
 }
