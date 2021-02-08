@@ -7,6 +7,7 @@ namespace App\Charts;
 use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
+use App\Models\Hospital;
 
 class PatientsChart extends BaseChart
 {
@@ -17,9 +18,14 @@ class PatientsChart extends BaseChart
      */
     public function handler(Request $request): Chartisan
     {
+        $chartData = Hospital::select('id', 'name', 'patientNo', 'workersNo')->get()->toArray();
+        $nameArray = array_column($chartData, 'name');
+        $patientNoArray = array_column($chartData, 'patientNo');
+        $workerNoArray = array_column($chartData, 'workersNo');
+
         return Chartisan::build()
-            ->labels(['Mulago', 'Makerere', 'Wakiso'])
-            ->dataset('Patients', [10, 3, 7])
-            ->dataset('Health Workers', [1, 6, 2]);
+            ->labels($nameArray)
+            ->dataset('Patients', $patientNoArray)
+            ->dataset('Health Workers', $workerNoArray);
     }
 }
