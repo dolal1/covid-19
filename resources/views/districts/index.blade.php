@@ -31,7 +31,8 @@
         </h2>
       <div id="collapse{{ $district->id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $district->id }}" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          Number of Health Officers: 5
+          <p>Number of Health Officers: <strong>{{ $district->workerNo }}</strong></p>
+          <p>Number of Patients: <strong>{{ $district->patientNo }}</strong></p>
         </div>
         <div class="mt-2 mb-5 col-8">
           <a class="btn btn-outline-info float-left" href="/districts/{{ $district -> id }}/edit" >Edit District Details</a>

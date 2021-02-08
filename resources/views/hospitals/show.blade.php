@@ -18,6 +18,7 @@
             <strong class="d-block text-gray-dark">{{$hospital -> name}}</strong>
             <p>Added On: <strong>{{$hospital -> created_at -> format('d-m-Y')}}</strong></p>
             <p>District: <strong>{{$district -> name}}</strong></p>
+            <p>Head Officer: <strong>Dr. {{ $headOfficerName }}</strong></p>
             <p>Number Of Patients: <strong>{{$hospital -> patientNo}}</strong></p>
 
             {{-- <p>Hospital: Mulago Hospital</p>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hospital;
+use App\Models\Healthworker;
 use App\Models\District;
 use App\Models\Patients;
 
@@ -61,11 +62,11 @@ class HospitalsController extends Controller
     public function show($id)
     {
         $hospital = Hospital::findOrFail($id);
-        $district = District::findOrFail($hospital->district_id);
+        $district = District::find($hospital->district_id);
 
-        error_log(count($hospital->patients));
+        $headOfficerName = Healthworker::find($hospital->headofficer_id)->name;
 
-        return view('hospitals.show', ['hospital' => $hospital, 'district' => $district]);
+        return view('hospitals.show', ['hospital' => $hospital, 'district' => $district, 'headOfficerName' => $headOfficerName]);
     }
 
     /**

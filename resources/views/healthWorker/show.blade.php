@@ -16,7 +16,8 @@
     
         <div class="pb-3 mb-0 small lh-sm border-bottom">
             <strong class="d-block text-gray-dark">{{$healthWorker -> name}}</strong>
-            <p>Hospital: {{$hospital -> name}}</p>
+            <p>Hospital: <strong>{{$hospital -> name}}</strong></p>
+            <p>Number Of Patients: <strong>{{$healthWorker -> patientNo}}</strong></p>
             <p>Since: {{$healthWorker -> created_at -> format('d-m-Y')}}</p>
         </div>
     </div>

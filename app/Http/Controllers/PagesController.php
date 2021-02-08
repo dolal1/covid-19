@@ -17,10 +17,12 @@ class PagesController extends Controller
         $healthWorkers = Healthworker::orderBy('created_at', 'desc')->paginate(6);
         $hospitals = Hospital::orderBy('created_at', 'desc')->paginate(6);
         $patients = Patient::orderBy('created_at', 'desc')->paginate(6);
+        $totalNoPatients = Patient::count();
         return view('pages.dashboard', [
             'healthWorkers' => $healthWorkers,
             'hospitals' => $hospitals,
             'patients' => $patients,
+            'totalNoPatients' => $totalNoPatients
         ]);
     }
 }

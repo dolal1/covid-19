@@ -74,8 +74,8 @@ class PatientsController extends Controller
     public function show($id)
     {
         $patient = Patient::findOrFail($id);
-        $hospital = Hospital::findOrFail($patient->hospital_id);
         $healthWorker = Healthworker::findOrFail($patient->healthWorker_id);
+        $hospital = Hospital::findOrFail($healthWorker->hospital_id);
         return view('patients.show', ['patient' => $patient, 'hospital' => $hospital, 'healthWorker' => $healthWorker]);
     }
 

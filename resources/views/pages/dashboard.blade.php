@@ -4,7 +4,7 @@
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
   <div class="lh-1">
     <h3 class="h3 mb-0 lh-1">Total Cases</h3>
-    <p>201</p>
+    <p><strong>{{$totalNoPatients}}</strong></p>
   </div>
 </div>
 
