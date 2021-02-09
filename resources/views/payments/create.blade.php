@@ -3,66 +3,81 @@
 @section('content')
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="lh-1">
-      <h3 class="h3 mt-3 lh-1">Patients Form</h3>
+      <h3 class="h3 mt-3 lh-1">Payments Breakdown</h3>
     </div>
 </div>
 
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="row g-3">
-          <div class="col-md-10 col-lg-12">
-            <form class="needs-validation" method="POST" action="/patients">
-              @csrf
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label for="fullName" class="form-label">Full Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="fullName"
-                    name="name"
-                    placeholder="Full Names"
-                    required
-                  />
-                </div>
-
-                <div class="col-md-6">
-                  <label for="healthWorker" class="form-label">Health Worker</label>
-                  <select class="form-select" name="healthWorker_id" aria-label="Select Health Worker" required>
-                    <option value="">Please Select Health Worker from Below</option>
-                    @foreach ($healthworkers as $healthworker)
-                      <option value={{$healthworker->id}}>{{ $healthworker->name}}</option>
-                    @endforeach
-                  </select>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="gender" class="form-label">Gender</label>
-                    <select class="form-select" name="gender" aria-label="Select Gender">
-                        <option value="">Select Gender</option>
-                        <option value="F">Female</option>
-                        <option value="M">Male</option>
-                    </select>
-                </div>
-              </div> 
-
-              <div class="my-3 ">
-                <label for="asymptomatic" class="form-label">Is Asymptomatic?</label>
-                <div class="form-check">
-                    <input id="yes" name="asymptomatic" value="1" type="radio" class="form-check-input" required>
-                    <label class="form-check-label" for="yes">Yes</label>
-                </div>
-                <div class="form-check">
-                    <input id="no" name="asymptomatic" value="0" type="radio" class="form-check-input" required>
-                    <label class="form-check-label" for="no">No</label>
-               </div>
-            </div>
-              <hr class="my-4" />
-
-              <button class="w-50 btn btn-primary btn-lg text-center" type="submit">
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
+      <p>
+        <h3>Total Amount Donated in the month : <p style="color: green">{{ number_format($totalMonthly)}}</p> 
+        </h3>
+      </p>
+      <table style="width: 100%">
+        <tr>
+          <th>Payable Funds : </th>
+          <td>{{ number_format($payableFunds) }}</td>
+        </tr>
+        <tr><th> _</th></tr>
+        <tr><th><p style="background-color:DodgerBlue; color: White">Heads Payments</p></th></tr>
+        <tr>
+          <th>Admin payment : </th>
+          <td>{{ number_format($adminTotal) }}</td>
+        </tr>
+        <tr>
+          <th>Director payment : </th>
+          <td>{{ number_format($directorTotal) }}</td>
+        </tr>
+        <tr>
+          <th>Superintendent payment : </th>
+          <td>{{ number_format($superintendentTotal) }}</td>
+        </tr>
+        <tr>
+          <th>Head Health Officer payment : </th>
+          <td>{{ number_format($headHOfficerTotal) }}</td>
+        </tr>
+        <tr><th> _</th></tr>
+        <tr><th><p style="background-color:Tomato; color: White">Health Officers Payments</p></th></tr>
+        <tr>
+          <th>Health Officer payment : </th>
+          <td>{{ number_format($healthOfficerTotal) }}</td>
+        </tr>
+        <tr>
+          <th>Senior Health Officer payment : </th>
+          <td>{{ number_format($seniorHOfficerTotal) }}</td>
+        </tr>
+        <tr>
+          <th>Covid-19 Consultant payment : </th>
+          <td>{{ number_format($consultantTotal) }}</td>
+        </tr>
+        <tr><th> =================================</th></tr>
+        <tr>
+          <th>Total amount used : </th>
+          <td>{{ number_format($totalPaid) }}</td>
+        </tr>
+        <tr><th> _</th></tr>
+        <tr>
+          <th>balanceAfterPaying : </th>
+          <td>{{ number_format($balanceAfterPaying) }}</td>
+        </tr>
+      </table>
+    </div>
 </div>
+@if ($balanceAfterPaying > 0) 
+  <form method="POST" action="/payments">
+    @csrf
+    <input
+          type="hidden"
+          name="totalPaid"
+          value= {{$totalPaid}}
+        />
+
+    <button class="w-50 btn btn-primary btn-lg" type="submit">
+      Make Payment
+    </button>
+  </form>
+  {{-- <a class="btn btn-primary btn-sm mt-3" href="/payments">Make Payment</a> --}}
+@else
+  <a class="btn btn-secondary disabled btn-sm mt-3" href="/payments">Unable to Make Payment</a>
+@endif
 @endsection

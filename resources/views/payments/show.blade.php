@@ -3,47 +3,50 @@
 @section('content')
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
     <div class="lh-1">
-      <h3 class="h3 mt-3 lh-1">{{$patient -> name}}</h3>
+      <h3 class="h3 mt-3 lh-1">Month : {{$payment -> month}}</h3>
     </div>
 </div>
 <div class="align-items-center p-3 my-3 bg-purple rounded shadow-sm">
-    <div class="d-flex text-muted pt-3">
-        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg"
-            role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
-        </svg>
-    
-        <div class="pb-3 mb-0 small lh-sm border-bottom">
-            <strong class="d-block text-gray-dark">{{$patient -> name}}</strong>
-            <p>Hospital: {{$hospital -> name}}</p>
-            <p>Since: {{$patient -> created_at -> format('d-m-Y')}}</p>
-            <p>Gender: 
-                @if($patient -> gender == 'M')         
-                    Male
-                @else
-                    Female
-                @endif
-            </p>
-            <p>Symptomatic: 
-                @if($patient -> asymptomatic == 0)         
-                    No
-                @else
-                    Yes
-                @endif
-            </p>
-            <p>Health Worker: {{$healthWorker -> name}}</p>
-        </div>
-    </div>
-    <div class="mt-2 mb-5 col-8">
-        <a class="btn btn-outline-info float-left" href="/patients/{{ $patient -> id }}/edit" >Edit Paitent Details</a>
-
-        <form action="/patients/{{ $patient -> id }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-warning float-right">Discharge Paitent</button>
-        </form>
-    </div>
+    <div class="row g-3">
+        <table style="width: 100%">
+          <tr><th><p style="background-color:DodgerBlue; color: White">Heads Payments</p></th></tr>
+          <tr>
+            <th>Admin payment : </th>
+            <td>{{  number_format($structure -> admin) }}</td>
+          </tr>
+          <tr>
+            <th>Director payment : </th>
+            <td>{{ number_format($structure -> director) }}</td>
+          </tr>
+          <tr>
+            <th>Superintendent payment : </th>
+            <td>{{ number_format($structure -> superintendent) }}</td>
+          </tr>
+          <tr>
+            <th>Head Health Officer payment : </th>
+            <td>{{ number_format($structure -> headHOfficer) }}</td>
+          </tr>
+          <tr><th> _</th></tr>
+          <tr><th><p style="background-color:Tomato; color: White">Health Officers Payments</p></th></tr>
+          <tr>
+            <th>Covid-19 Consultant payment : </th>
+            <td>{{ number_format($structure -> consultant) }}</td>
+          </tr>
+          <tr>
+            <th>Senior Health Officer payment : </th>
+            <td>{{ number_format($structure -> seniorHOfficer) }}</td>
+          </tr>
+          <tr>
+            <th>Health Officer payment : </th>
+            <td>{{ number_format($structure -> healthOfficer) }}</td>
+          </tr>
+          <tr><th> =================================</th></tr>
+          <tr>
+            <th>Total amount paid : </th>
+            <td>{{ number_format($payment -> amount_paid) }}</td>
+          </tr>
+        </table>
+      </div>
 </div>
 
 @endsection
