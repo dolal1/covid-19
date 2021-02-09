@@ -70,16 +70,19 @@
               <a class="nav-link" href="/patients">Patients</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/hospitals">Hospitals</a>
+              <a class="nav-link" href="/healthworkers">Health Workers</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/healthworkers">Health Workers</a>
+              <a class="nav-link" href="/hospitals">Hospitals</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/districts">Districts</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/donors">Donations</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/payments">Payments</a>
             </li>
             <li class="nav-item dropdown">
               <a 

@@ -7,6 +7,7 @@ use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\HealthworkersController;
 use App\Http\Controllers\DonorsController;
 use App\Http\Controllers\DistrictsController;
+use App\Http\Controllers\PaymentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +66,11 @@ Route::get('/districts/{id}', [DistrictsController::class, 'show']);
 Route::get('/districts/{id}/edit', [DistrictsController::class, 'edit']);
 Route::patch('/districts/{id}', [DistrictsController::class, 'update']);
 Route::delete('/districts/{id}', [DistrictsController::class, 'destroy']);
+
+Route::get('/payments', [PaymentsController::class, 'index']);
+Route::get('/payments/create', [PaymentsController::class, 'create']);
+Route::post('/payments', [PaymentsController::class, 'store']);
+Route::get('/payments/{id}', [PaymentsController::class, 'show']);
+Route::get('/payments/{id}/edit', [PaymentsController::class, 'edit']);
+Route::patch('/payments/{id}', [PaymentsController::class, 'update']);
+Route::delete('/payments/{id}', [PaymentsController::class, 'destroy']);
