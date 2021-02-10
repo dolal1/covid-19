@@ -20,6 +20,7 @@ class HospitalSeeder extends Seeder
             Hospital::create([
                 'name'  => "$faker->company Hospital",
                 'district_id'=> $faker->numberBetween($min = 1, $max = 3),
+                'level' => $faker->randomElement($array = array ('National', 'Regional', 'General')),
             ]);
         }
     }
