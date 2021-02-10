@@ -58,12 +58,16 @@ class HealthworkersController extends Controller
         $healthWorker->name = request('name');
         $healthWorker->username = request('username');
 
-        $hospital = Hospital::orderBy('workersNo')->first();
+        $hospital = Hospital::where('level', 'General')->orderBy('workersNo')->first();
         $healthWorker->hospital_id = $hospital->id;
 
         $healthWorker->save();
         
-        ++$hospital->workersNo;
+        $hospital->workersNo = ($hospital->workersNo)+1;
+        if($hospital->headofficer_id == NULL)
+        {
+            $hospital->headofficer_id = $healthWorker->id;
+        }
         $hospital->save();
 
         $name = $healthWorker->name;
@@ -145,6 +149,19 @@ class HealthworkersController extends Controller
         
         --$hospital->workersNo;
         $hospital->save();
+
+        // //if health worker was head. replace him
+        // $hosp = Hospital::where('headofficer_id', $id)->first();
+        // if ($hosp != null) {
+        //     $hosp->headofficer_id = NULL;
+
+        //     $newHead = Healthworker::where('hospital_id', $hosp->id)->orderBy('created_at')->first();
+        //     //if hospital stil has workers left
+        //     if ($newHead != null) {
+        //         $hosp->headofficer_id = $newHead->id;
+        //     }
+        //     $hosp->save();
+        // }
 
         return redirect('/healthworkers')->with('msg', 'A Health Officer has Been Removed from the Database');
     }

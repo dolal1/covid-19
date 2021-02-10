@@ -35,6 +35,15 @@
                     @endforeach
                 </select>
             </div>
+            <div class="col-sm-6">
+                <label for="level" class="form-label">Level</label>
+                <select class="form-select" name="level" aria-label="Select Level" required>
+                    <option value={{$originalLevel}}>{{$originalLevel}} - Original</option>
+                    @foreach ($levels as $level)
+                    <option value={{$level}}>{{ $level}}</option>
+                    @endforeach
+                </select>
+            </div>
             <hr class="my-4" />
             <button class="btn btn-primary btn-lg" type="submit">
                 Update

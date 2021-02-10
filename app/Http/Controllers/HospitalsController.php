@@ -31,7 +31,10 @@ class HospitalsController extends Controller
     public function create()
     {
         $districts = District::all();
-        return view('hospitals.create', ['districts' => $districts]);
+        return view('hospitals.create', [
+            'districts' => $districts,
+            'levels' => ['National', 'Regional', 'General'],
+        ]);
     }
 
     /**
@@ -46,6 +49,7 @@ class HospitalsController extends Controller
 
         $hospital->name = request('hospital');
         $hospital->district_id = request('district');
+        $hospital->level = request('level');
 
         $hospital->save();
 
@@ -64,7 +68,11 @@ class HospitalsController extends Controller
         $hospital = Hospital::findOrFail($id);
         $district = District::find($hospital->district_id);
 
-        $headOfficerName = Healthworker::find($hospital->headofficer_id)->name;
+        $headOfficerName = 'None';
+        $headOfficer = Healthworker::find($hospital->headofficer_id);
+        if ($headOfficer != NULL) {
+            $headOfficerName = "Dr. ".$headOfficer->name;
+        }
 
         return view('hospitals.show', ['hospital' => $hospital, 'district' => $district, 'headOfficerName' => $headOfficerName]);
     }
@@ -80,7 +88,14 @@ class HospitalsController extends Controller
         $hospital = Hospital::findOrFail($id);
         $districts = District::all();
         $orignalDistrict = District::findOrFail($hospital->district_id);
-        return view('hospitals.edit', ['hospital' => $hospital, 'districts' => $districts,'orignalDistrict' => $orignalDistrict]);
+        $originalLevel = $hospital->level;
+        return view('hospitals.edit', [
+            'hospital' => $hospital, 
+            'districts' => $districts,
+            'levels' => ['National', 'Regional', 'General'],
+            'orignalDistrict' => $orignalDistrict,
+            'originalLevel' => $originalLevel,
+        ]);
     }
 
     /**
@@ -96,6 +111,7 @@ class HospitalsController extends Controller
 
         $hospital->name = request('hospital');
         $hospital->district_id = request('district');
+        $hospital->level = request('level');
 
         $hospital->save();
 
