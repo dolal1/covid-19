@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Healthworker;
+use App\Models\Hospital;
+use App\Models\Paymentstructure;
+use App\Models\Treasury;
 
 class PayLogic
 {
@@ -60,21 +64,21 @@ class PayLogic
     public function getEntryHOsNo()
     {
         $headsNo = $this->getHeadsNo();
-        $total = DB::table('healthworkers')->where('status', 'Entry')->count('id');
+        $total = DB::table('healthworkers')->where('status', 'entry')->count('id');
         return ($total - $headsNo);
     }
     //number of senior ho's(Regional Hosp)
     public function getSeniorHOsNo()
     {
         $suprsNo = $this->getSuperintendentsNo();
-        $total = DB::table('healthworkers')->where('status', 'Senior')->count('id');
+        $total = DB::table('healthworkers')->where('status', 'senior')->count('id');
         return ($total - $suprsNo);
     }
     //number of consultant ho's(National Hosp)
     public function getConsultantHOsNo()
     {
         $directorsNo = $this->getDirectorsNo();
-        $total = DB::table('healthworkers')->where('status', 'Consultant')->count('id');
+        $total = DB::table('healthworkers')->where('status', 'consultant')->count('id');
         return ($total - $directorsNo);
     }
 
@@ -280,11 +284,106 @@ class PayLogic
     }
     //End of total payments
 
+    //Allocate payment to each health officer
+    public function allocatePayment(Healthworker $ho)
+    {
+        //check if ho is a head. if so,
+        //assign his hospital level to this variable
+        $hospLevel = Hospital::where('headofficer_id', $ho->id)->orderBy('created_at', 'desc')->pluck('level')->first();
+
+        $directorTotal = $this->directorTotal();
+        $superintendentTotal = $this->superintendentTotal();
+        $headHOfficerTotal = $this->headHOfficerTotal();
+
+        $consultantTotal = $this->consultantTotal();
+        $seniorHOfficerTotal = $this->seniorHOfficerTotal();
+        $healthOfficerTotal = $this->healthOfficerTotal();
+
+        if($ho->status == 'entry'){
+            $ho->salary = $healthOfficerTotal;
+        }
+        elseif($ho->status == 'senior'){
+            $ho->salary = $seniorHOfficerTotal;
+        }
+        elseif($ho->status == 'consultant'){
+            $ho->salary = $consultantTotal;
+        }
+        
+        //assign new salary if HO is a head.
+        if($hospLevel == 'General')
+        {
+            $ho->salary = $headHOfficerTotal;
+        }
+        elseif($hospLevel == 'Regional')
+        {
+            $ho->salary = $superintendentTotal;
+        }
+        elseif($hospLevel == 'National')
+        {
+            $ho->salary = $directorTotal;
+        }
+
+        return $ho;
+
+    }
+
+    //save payment structure
+    public function savePaymentStructure()
+    {
+        $directorTotal = $this->directorTotal();
+        $superintendentTotal = $this->superintendentTotal();
+        $adminTotal = $this->adminTotal();
+        $healthOfficerTotal = $this->healthOfficerTotal();
+        $seniorHOfficerTotal = $this->seniorHOfficerTotal();
+        $consultantTotal = $this->consultantTotal();
+        $headHOfficerTotal = $this->headHOfficerTotal();
+        $month = date('m');
+        
+
+        $paymentstructure = new Paymentstructure();
+
+        $paymentstructure->month = $month;
+        $paymentstructure->admin = $adminTotal;
+        $paymentstructure->director = $directorTotal;
+        $paymentstructure->superintendent = $superintendentTotal;
+        $paymentstructure->headHOfficer = $headHOfficerTotal;
+        $paymentstructure->consultant = $consultantTotal;
+        $paymentstructure->seniorHOfficer = $seniorHOfficerTotal;
+        $paymentstructure->healthOfficer = $healthOfficerTotal;
+
+        return $paymentstructure;
+    }
+
     public function totalPayments()
     {
         $totalSalaries = $this->totalSalaries();
         $totalBonuses = $this->totalBonuses();
         return ($totalSalaries + $totalBonuses);
+    }
+
+    //update treasury
+    public function updateTreasury()
+    {
+        $totalPaid = $this->totalPayments();
+
+        $treasury = Treasury::find(1);
+        //get current values
+        $excess = $treasury->excess;
+        $amount = $treasury->amount;
+
+        //subtract the amount that has been paid from the current,
+        //treasury amount value.
+        $treasury->amount = ($amount - $totalPaid);
+        //get the excess
+        $excess = ($amount - $totalPaid) - 100000000;
+
+        if($excess < 1 ) {
+            $treasury->excess = 0;
+        } else {
+            $treasury->excess = $excess;
+        }
+
+        return $treasury;
     }
 
     //Monthly Balance after payment of salaries and bonus

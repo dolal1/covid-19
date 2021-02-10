@@ -47,11 +47,28 @@ class DonorsController extends Controller
 
         $donor->save();
 
-        $totalDonations = DB::table('donors')->sum('amount');
-        $excess = $totalDonations - 1000000;
+        // $totalDonations = DB::table('donors')->sum('amount');
+        // $excess = $totalDonations - 1000000;
+
+        // $treasury = Treasury::find(1);
+        // $treasury->amount = $totalDonations;
+        // if($excess < 1 ) {
+        //     $treasury->excess = 0;
+        // } else {
+        //     $treasury->excess = $excess;
+        // }
 
         $treasury = Treasury::find(1);
-        $treasury->amount = $totalDonations;
+        //get current values
+        $excess = $treasury->excess;
+        $amount = $treasury->amount;
+
+        //add the new donation to it.
+        $newAmout = ($amount + request('amount'));
+        $excess = $newAmout - 100000000;
+
+        $treasury->amount = $newAmout;
+
         if($excess < 1 ) {
             $treasury->excess = 0;
         } else {
@@ -96,17 +113,35 @@ class DonorsController extends Controller
     public function update(Request $request, $id)
     {
         $donor = Donor::find($id);
+        $oldAmt = $donor->amount;
 
         $donor->name = request('name');
         $donor->amount = request('amount');
 
         $donor->save();
         
-        $totalDonations = DB::table('donors')->sum('amount');
-        $excess = $totalDonations - 1000000;
+        // $totalDonations = DB::table('donors')->sum('amount');
+        // $excess = $totalDonations - 1000000;
+
+        // $treasury = Treasury::find(1);
+        // $treasury->amount = $totalDonations;
+        // if($excess < 1 ) {
+        //     $treasury->excess = 0;
+        // } else {
+        //     $treasury->excess = $excess;
+        // }
 
         $treasury = Treasury::find(1);
-        $treasury->amount = $totalDonations;
+        //get current values
+        $excess = $treasury->excess;
+        $amount = $treasury->amount;
+
+        //subtract the old amount and add the new updated donation to it.
+        $newAmout = (($amount - $oldAmt) + request('amount'));
+        $excess = $newAmout - 100000000;
+
+        $treasury->amount = $newAmout;
+
         if($excess < 1 ) {
             $treasury->excess = 0;
         } else {
@@ -127,13 +162,31 @@ class DonorsController extends Controller
     public function destroy($id)
     {
         $donor = Donor::findOrFail($id);
+        $donorAmt = $donor->amount;
         $donor->delete();
 
-        $totalDonations = DB::table('donors')->sum('amount');
-        $excess = $totalDonations - 1000000;
+        // $totalDonations = DB::table('donors')->sum('amount');
+        // $excess = $totalDonations - 1000000;
+
+        // $treasury = Treasury::find(1);
+        // $treasury->amount = $totalDonations;
+        // if($excess < 1 ) {
+        //     $treasury->excess = 0;
+        // } else {
+        //     $treasury->excess = $excess;
+        // }
 
         $treasury = Treasury::find(1);
-        $treasury->amount = $totalDonations;
+        //get current values
+        $excess = $treasury->excess;
+        $amount = $treasury->amount;
+
+        //subtract the deleted donation from it.
+        $newAmout = ($amount - $donorAmt);
+        $excess = $newAmout - 100000000;
+
+        $treasury->amount = $newAmout;
+
         if($excess < 1 ) {
             $treasury->excess = 0;
         } else {

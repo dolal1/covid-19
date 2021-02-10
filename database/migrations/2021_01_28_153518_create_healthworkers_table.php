@@ -21,7 +21,7 @@ class CreateHealthworkersTable extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->integer('patientNo')->default(0);
-            $table->enum('status', array('entry', 'consultant', 'superintendent', 'director'))->default('entry');
+            $table->enum('status', array('entry', 'senior', 'consultant'))->default('entry');
             $table->integer('salary')->default(0);
             $table->timestamps();
         });

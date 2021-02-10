@@ -6,6 +6,8 @@ use App\Models\Payment;
 use App\Models\Paymentstructure;
 use App\Models\Donor;
 use App\Models\Treasury;
+use App\Models\Healthworker;
+use App\Models\Hospital;
 
 include ("PayLogic.php");
 
@@ -92,38 +94,35 @@ class PaymentsController extends Controller
      */
     public function store(Request $request)
     {
-        //store the payment in payments table
-        
         $payLogic = new PayLogic();
         $month = date('m');
+
+        //store the payment in payments table
         $payment = new Payment();
 
         $payment->month = $month;
         $payment->amount_paid = request('totalPaid');
 
         $payment->save();
+
         //store the salrary structure in paymentstructures table
-        $directorTotal = $payLogic->directorTotal();
-        $superintendentTotal = $payLogic->superintendentTotal();
-        $adminTotal = $payLogic->adminTotal();
-        $healthOfficerTotal = $payLogic->healthOfficerTotal();
-        $seniorHOfficerTotal = $payLogic->seniorHOfficerTotal();
-        $consultantTotal = $payLogic->consultantTotal();
-        $headHOfficerTotal = $payLogic->headHOfficerTotal();
-        
-
-        $paymentstructure = new Paymentstructure();
-
-        $paymentstructure->month = $month;
-        $paymentstructure->admin = $adminTotal;
-        $paymentstructure->director = $directorTotal;
-        $paymentstructure->superintendent = $superintendentTotal;
-        $paymentstructure->headHOfficer = $headHOfficerTotal;
-        $paymentstructure->consultant = $consultantTotal;
-        $paymentstructure->seniorHOfficer = $seniorHOfficerTotal;
-        $paymentstructure->healthOfficer = $healthOfficerTotal;
+        $paymentstructure = $payLogic->savePaymentStructure();
 
         $paymentstructure->save();
+
+        //edit each health worker and assign their payment(salary + bonus).
+        $hos = Healthworker::all();
+
+        foreach ($hos as $ho) {
+            $newHO = $payLogic->allocatePayment($ho);
+
+            $newHO->save();
+        }
+
+        //update treasury
+        $treasury = $payLogic->updateTreasury();
+
+        $treasury->save();
 
         return redirect('/payments')->with('msg', "Payment succesfull");
         
