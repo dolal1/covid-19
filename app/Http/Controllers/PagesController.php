@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Hospital;
 use App\Models\Healthworker;
+use App\Models\Donor;
 
 class PagesController extends Controller
 {
@@ -17,11 +18,13 @@ class PagesController extends Controller
         $healthWorkers = Healthworker::orderBy('created_at', 'desc')->paginate(6);
         $hospitals = Hospital::orderBy('created_at', 'desc')->paginate(6);
         $patients = Patient::orderBy('created_at', 'desc')->paginate(6);
+        $donors = Donor::orderBy('created_at', 'desc')->paginate(6);
         $totalNoPatients = Patient::count();
         return view('pages.dashboard', [
             'healthWorkers' => $healthWorkers,
             'hospitals' => $hospitals,
             'patients' => $patients,
+            'donors' => $donors,
             'totalNoPatients' => $totalNoPatients
         ]);
     }

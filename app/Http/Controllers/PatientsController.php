@@ -90,8 +90,8 @@ class PatientsController extends Controller
         $patient = Patient::findOrFail($id);
         $hospitals = Hospital::all();
         $allHealthWorkers = Healthworker::all();
-        $hospital = Hospital::findOrFail($patient->hospital_id);
         $selectedHealthWorker = Healthworker::findOrFail($patient->healthWorker_id);
+        $hospital = Hospital::findOrFail($selectedHealthWorker->hospital_id);
 
         return view('patients.edit', ['patient' => $patient, 'hospital' => $hospital, 'healthWorker' => $selectedHealthWorker, 'hospitals' => $hospitals, 'healthWorkers' => $allHealthWorkers]);
     }
@@ -108,7 +108,7 @@ class PatientsController extends Controller
         $patient = Patient::find($id);
 
         $patient->name = request('name');
-        $patient->hospital_id = Hospital::find(request('healthWorker_id'))->id;
+        // $patient->hospital_id = Hospital::find(request('healthWorker_id'))->id;
         $patient->gender = request('gender');
         $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');
