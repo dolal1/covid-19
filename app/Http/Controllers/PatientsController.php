@@ -128,14 +128,9 @@ class PatientsController extends Controller
     public function destroy($id)
     {
         $patient = Patient::findOrFail($id);
-        $hospital = $patient->hospital_id;
         $name = $patient->name;
 
         $patient->delete();
-
-        $hospital = Hospital::find($hospital);
-        --$hospital->patientNo;
-        $hospital->save();
 
         return redirect('/patients')->with('msg', "$name has Been Deleted.");
     }
