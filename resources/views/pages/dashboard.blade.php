@@ -4,7 +4,7 @@
 <div class="d-flex align-items-center p-3 my-3 bg-purple rounded shadow-sm">
   <div class="lh-1">
     <h3 class="h3 mb-0 lh-1">Total Cases</h3>
-    <p><strong>{{$totalNoPatients}}</strong></p>
+    <p><strong>{{number_format($totalNoPatients)}}</strong></p>
   </div>
 </div>
 
@@ -15,7 +15,7 @@
 </div>
 
 <div class="my-3 p-3 bg-white rounded shadow-sm col-10">
-    <h6 class="border-bottom pb-2 mb-0">Patients</h6>
+  <h6 class="border-bottom pb-2 mb-0">Patients</h6>
   @if (count($patients) > 0)
   @foreach ($patients as $patient)
   <div class="d-flex text-muted pt-3">
@@ -64,7 +64,8 @@
                 <strong class="text-gray-dark">{{ $healthWorker -> name}}</strong>
                 <a class="btn btn-outline-info btn-sm" href="/healthworkers/{{ $healthWorker -> id}}">Follow Up</a>
             </div>
-            <span class="d-block">@ {{ $healthWorker -> username}}</span>
+            <span class="d-block">Username: <strong>{{ $healthWorker -> username }}</strong></span>
+            <span class="d-block">Patient Number: <strong>{{number_format($healthWorker -> patientNo)}}</strong></span>
         </div>
     </div>
     @endforeach
@@ -88,7 +89,7 @@
                 <strong class="text-gray-dark">{{ $hospital -> name}}</strong>
                 <a class="btn btn-outline-info btn-sm" href="/hospitals/{{ $hospital -> id}}">Follow Up</a>
             </div>
-            {{-- <span class="d-block">@ {{ $hospital -> username}}</span> --}}
+            <span class="d-block">Patient Number: <strong>{{ $hospital -> patientNo}}</strong></span>
         </div>
     </div>
     @endforeach
@@ -112,7 +113,7 @@
                 <strong class="text-gray-dark">{{ $donor -> name}}</strong>
                 <a class="btn btn-outline-info btn-sm" href="/donors">Follow Up</a>
             </div>
-            {{-- <span class="d-block">@ {{ $donor -> username}}</span> --}}
+            <span class="d-block">Donated: UGX <strong>{{ number_format($donor -> amount) }}</strong></span>
         </div>
     </div>
     @endforeach

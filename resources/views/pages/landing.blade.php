@@ -10,10 +10,11 @@
 
         <!-- Bootstrap core CSS -->
         <link 
-            href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css"
-            rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous"
-        />
+        >
 
         <meta name="theme-color" content="#7952b3">
 
@@ -40,16 +41,38 @@
     <body class="d-flex h-100 text-center text-white bg-dark">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <header>
-                <div>
-                    <h3 class="float-md-start mb-0">
+                <nav class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Main navigation">
+                    <div class="container container-fluid">
+                        <a class="navbar-brand float-md-start mb-0" href="/">
                         Covid-19 Management System
-                    </h3>
-                    <nav class="nav nav-masthead justify-content-center float-md-end">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                        <a class="nav-link" href="/dashboard">Dashboard</a>
-                        <a class="nav-link" href="#">Sign In</a>
-                    </nav>
-                </div>
+                        </a>
+                        <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarTogglerDemo02"
+                        aria-controls="navbarTogglerDemo02"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        >
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                            <li class="nav-item active">
+                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                            </li>
+                            <li class="nav-item active">
+                            <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item active">
+                            <a class="nav-link" aria-current="page" href="#">Sign In</a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                </nav>
             </header>
 
             <main class="px-3 m-auto">
@@ -59,7 +82,7 @@
                     edit the text, and add your own fullscreen background photo to make it your own.
                 </p>
                 <p class="lead">
-                    <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
+                    <a href="/dashboard" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
                 </p>
             </main>
             
@@ -67,5 +90,8 @@
                 <p class="mt-5 text-muted">&copy; Covid-19 Management System</p>
             </footer>
         </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
     </body>
 </html>

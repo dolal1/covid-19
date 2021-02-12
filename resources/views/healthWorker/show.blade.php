@@ -19,6 +19,13 @@
             <p>Hospital: <strong>{{$hospital -> name}}</strong></p>
             <p>Number Of Patients: <strong>{{$healthWorker -> patientNo}}</strong></p>
             <p>Since: {{$healthWorker -> created_at -> format('d-m-Y')}}</p>
+            @if ($healthWorker -> salary >  0) 
+                <p>Paid: <strong>Yes</strong></p>
+                <p>Amount: <strong>Ugx {{number_format($healthWorker -> salary)}}</strong></p>
+            @else 
+                <p>Paid: <strong>No</strong></p>
+            @endif
+
         </div>
     </div>
     
