@@ -20,7 +20,6 @@ class PatientSeeder extends Seeder
         foreach (range(1, 100) as $value) {
             Patient::create([
             'name'  => $faker->name,
-            'date' => $faker->dateTime($max = 'now', $timezone = null), // DateTime('2008-04-25 08:37:17', 'UTC'),
             'asymptomatic' => $faker->numberBetween($min = 1, $max = 2),
             'gender' => $faker->randomElement($array = array ('F','M')),
             'healthWorker_id' => $faker->numberBetween($min = 1, $max = 20),
