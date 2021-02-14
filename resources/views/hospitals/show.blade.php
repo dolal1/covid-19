@@ -20,29 +20,20 @@
             <p>District: <strong>{{$district -> name}}</strong></p>
             <p>Head Officer: <strong>{{ $headOfficerName }}</strong></p>
             <p>Number Of Patients: <strong>{{$hospital -> patientNo}}</strong></p>
-
-            {{-- <p>Hospital: Mulago Hospital</p>
-            <p>Symptomatic: 
-                @if($patient -> asymptomatic == 0)         
-                    No
-                @else
-                    Yes
-                @endif
-            </p>
-            <p>Health Worker: {{$patient -> officer}}</p> --}}
-    
         </div>
     </div>
     
-    <div class="mt-2 mb-5 col-8">
-        <a class="btn btn-outline-info float-left" href="/hospitals/{{ $hospital -> id }}/edit" >Edit Hospital Details</a>
+    @auth
+        <div class="mt-2 mb-5 col-8">
+            <a class="btn btn-outline-info float-left" href="/hospitals/{{ $hospital -> id }}/edit" >Edit Hospital Details</a>
 
-        <form action="/hospitals/{{ $hospital -> id }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-warning float-right">Remove Hospital</button>
-        </form>
-    </div>
+            <form action="/hospitals/{{ $hospital -> id }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-warning float-right">Remove Hospital</button>
+            </form>
+        </div>
+    @endauth
 </div>
 
 @endsection

@@ -34,15 +34,18 @@
           <p>Number of Health Officers: <strong>{{ $district->workerNo }}</strong></p>
           <p>Number of Patients: <strong>{{ $district->patientNo }}</strong></p>
         </div>
-        <div class="mt-2 mb-5 col-8">
-          <a class="btn btn-outline-info float-left" href="/districts/{{ $district -> id }}/edit" >Edit District Details</a>
 
-          <form action="/districts/{{ $district -> id }}" method="POST">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="btn btn-outline-danger float-right">Remove District</button>
-          </form>
-        </div>
+        @auth
+          <div class="mt-2 mb-5 col-8">
+            <a class="btn btn-outline-info float-left" href="/districts/{{ $district -> id }}/edit" >Edit District Details</a>
+
+            <form action="/districts/{{ $district -> id }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger float-right">Remove District</button>
+            </form>
+          </div>
+        @endauth
       </div>
     </div>
   @endforeach

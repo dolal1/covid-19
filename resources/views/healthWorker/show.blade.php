@@ -28,16 +28,17 @@
 
         </div>
     </div>
-    
-    <div class="mt-2 mb-5 col-8">
-        <a class="btn btn-outline-info float-left" href="/healthworkers/{{ $healthWorker -> id }}/edit" >Edit Health Worker Details</a>
+    @auth
+        <div class="mt-2 mb-5 col-8">
+            <a class="btn btn-outline-info float-left" href="/healthworkers/{{ $healthWorker -> id }}/edit" >Edit Health Worker Details</a>
 
-        <form action="/healthworkers/{{ $healthWorker -> id }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-warning float-right">Remove Health Worker</button>
-        </form>
-    </div>
+            <form action="/healthworkers/{{ $healthWorker -> id }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-warning float-right">Remove Health Worker</button>
+            </form>
+        </div>
+    @endauth
 </div>
 
 @endsection

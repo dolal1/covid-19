@@ -35,15 +35,17 @@
             <p>Health Worker: {{$healthWorker -> name}}</p>
         </div>
     </div>
-    <div class="mt-2 mb-5 col-8">
-        <a class="btn btn-outline-info float-left" href="/patients/{{ $patient -> id }}/edit" >Edit Paitent Details</a>
+    @auth
+        <div class="mt-2 mb-5 col-8">
+            <a class="btn btn-outline-info float-left" href="/patients/{{ $patient -> id }}/edit" >Edit Paitent Details</a>
 
-        <form action="/patients/{{ $patient -> id }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-warning float-right">Discharge Paitent</button>
-        </form>
-    </div>
+            <form action="/patients/{{ $patient -> id }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-warning float-right">Discharge Paitent</button>
+            </form>
+        </div>
+    @endauth
 </div>
 
 @endsection

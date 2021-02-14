@@ -61,14 +61,43 @@
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                             <li class="nav-item active">
-                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                                <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
                             </li>
-                            <li class="nav-item active">
-                            <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
-                            </li>
-                            <li class="nav-item active">
-                            <a class="nav-link" aria-current="page" href="#">Sign In</a>
-                            </li>
+                            @auth
+                                <li class="nav-item dropdown">
+                                    <a 
+                                        class="nav-link dropdown-toggle" 
+                                        href="#" 
+                                        id="navbarDropdown" 
+                                        role="button" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false"
+                                    >
+                                        Actions
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="/patients/create">Add Patient</a></li>
+                                        <li><a class="dropdown-item" href="/healthworkers/create">Add Health Workers</a></li>
+                                        <li><a class="dropdown-item" href="/hospitals/create">Add Hospital</a></li>
+                                        <li><a class="dropdown-item" href="/districts/create">Add District</a></li>
+                                        <li><a class="dropdown-item" href="/donors/create">Add Donation</a></li>
+                                        <li><a class="dropdown-item" href="/payments">View Payments</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <form action="/logout" method="POST" class="form-inline">
+                                                @csrf
+                                                <button type="submit" class="w-100 btn btn-outline-secondary">Log Out</button>
+                                            </form>
+                                        </li>
+                                        <li><small class="dropdown-item text-center">{{ auth()->user()->name }}</small></li>
+                                    </ul>
+                                </li>
+                                @endauth
+                            @guest
+                                <li class="nav-item active">
+                                <a class="nav-link" aria-current="page" href="/signin">Sign In</a>
+                                </li>
+                            @endguest
                         </ul>
                         </div>
                     </div>

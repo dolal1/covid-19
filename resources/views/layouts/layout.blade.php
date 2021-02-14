@@ -44,9 +44,6 @@
             <li class="nav-item active">
               <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
             </li>
-            {{-- <li class="nav-item">
-              <a class="nav-link" href="#">Notifications</a>
-            </li> --}}
             <li class="nav-item">
               <a class="nav-link" href="/patients">Patients</a>
             </li>
@@ -62,30 +59,57 @@
             <li class="nav-item">
               <a class="nav-link" href="/donors">Donations</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/payments">Payments</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a 
-                class="nav-link dropdown-toggle" 
-                href="#" 
-                id="navbarDropdown" 
-                role="button" 
-                data-bs-toggle="dropdown" 
-                aria-expanded="false"
-              >
-                <i class="fa fa-plus-square"></i>
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/patients/create">Add Patient</a></li>
-                <li><a class="dropdown-item" href="/healthworkers/create">Add Health Workers</a></li>
-                <li><a class="dropdown-item" href="/hospitals/create">Add Hospital</a></li>
-                <li><a class="dropdown-item" href="/districts/create">Add District</a></li>
-                <li><a class="dropdown-item" href="/donors/create">Add Donation</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
+            @auth
+              <li class="nav-item">
+                <a class="nav-link" href="/payments">Payments</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a 
+                  class="nav-link dropdown-toggle" 
+                  href="#" 
+                  id="navbarDropdown" 
+                  role="button" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-user"></i> <i class="fa fa-plus-square"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/patients/create">Add Patient</a></li>
+                  <li><a class="dropdown-item" href="/healthworkers/create">Add Health Workers</a></li>
+                  <li><a class="dropdown-item" href="/hospitals/create">Add Hospital</a></li>
+                  <li><a class="dropdown-item" href="/districts/create">Add District</a></li>
+                  <li><a class="dropdown-item" href="/donors/create">Add Donation</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form action="/logout" method="POST" class="form-inline">
+                      @csrf
+                      <button type="submit" class="w-100 btn btn-outline-dark">Log Out</button>
+                    </form>
+                  </li>
+                  <li><small class="dropdown-item text-center">{{ auth()->user()->name }}</small></li>
+                </ul>
+              </li>
+            @endauth
+
+            @guest
+              <li class="nav-item dropdown">
+                <a 
+                  class="nav-link dropdown-toggle" 
+                  href="#" 
+                  id="navbarDropdown" 
+                  role="button" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-user"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/login">Log In</a></li>
+                  <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
+                </ul>
+              </li>
+            @endguest
           </ul>
         </div>
       </div>

@@ -7,6 +7,14 @@
     <p><strong>{{number_format($totalNoPatients)}}</strong></p>
   </div>
 </div>
+@if (session('msg'))
+  <div class="alert alert-primary fade show" role="alert">
+    {{ session('msg') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+@endif
 
 <div class="my-3 p-3 bg-white rounded shadow-sm col-10">
   <h6 class="border-bottom pb-2 mb-0">Summary</h6>

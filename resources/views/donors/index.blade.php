@@ -34,15 +34,17 @@
         <div class="accordion-body">
           Amount: UGX <strong>{{ number_format($donor->amount) }}</strong>
         </div>
-        <div class="mt-2 mb-5 col-8">
-          <a class="btn btn-outline-info float-left" href="/donors/{{ $donor -> id }}/edit" >Edit Donation Details</a>
+        @auth
+          <div class="mt-2 mb-5 col-8">
+            <a class="btn btn-outline-info float-left" href="/donors/{{ $donor -> id }}/edit" >Edit Donation Details</a>
 
-          <form action="/donors/{{ $donor -> id }}" method="POST">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="btn btn-outline-danger float-right">Remove Donation</button>
-          </form>
-        </div>
+            <form action="/donors/{{ $donor -> id }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger float-right">Remove Donation</button>
+            </form>
+          </div>
+        @endauth
       </div>
     </div>
   @endforeach
