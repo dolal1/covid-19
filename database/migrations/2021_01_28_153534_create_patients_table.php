@@ -16,7 +16,6 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->dateTime('date', 0);
             $table->boolean('asymptomatic');
             $table->string('gender');
             $table->foreignId('healthWorker_id')
