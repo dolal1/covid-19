@@ -115,6 +115,18 @@
       </div>
     </nav>
 
+    <a 
+      href="{{ url()->previous() }}"
+      class="btn btn-primary"
+      style="
+        position: relative;
+        top: 7rem;
+        left: 70rem;
+        "
+    >
+      Go Back
+    </a>
+
     <main class="container mt-5">
         @yield('content')
     </main>
