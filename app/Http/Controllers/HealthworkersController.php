@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Healthworker;
 use App\Models\Hospital;
+use App\Models\Patient;
 
 class HealthworkersController extends Controller
 {
@@ -84,7 +85,8 @@ class HealthworkersController extends Controller
     {
         $healthWorker = Healthworker::findOrFail($id);
         $hospital = Hospital::findOrFail($healthWorker->hospital_id);
-        return view('healthWorker.show', ['healthWorker' => $healthWorker, 'hospital' => $hospital]);
+        $patients = Patient::where('healthWorker_id', $healthWorker->id)->paginate(4);
+        return view('healthWorker.show', ['healthWorker' => $healthWorker, 'hospital' => $hospital, 'patients' => $patients]);
     }
 
     /**

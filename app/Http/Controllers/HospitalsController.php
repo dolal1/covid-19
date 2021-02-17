@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Healthworker;
 use App\Models\District;
-use App\Models\Patients;
+use App\Models\Patient;
 
 class HospitalsController extends Controller
 {
@@ -67,6 +67,7 @@ class HospitalsController extends Controller
     {
         $hospital = Hospital::findOrFail($id);
         $district = District::find($hospital->district_id);
+        $healthWorkers = Healthworker::where('hospital_id', '=', $hospital->id)->paginate(4);
 
         $headOfficerName = 'None';
         $headOfficer = Healthworker::find($hospital->headofficer_id);
@@ -74,7 +75,7 @@ class HospitalsController extends Controller
             $headOfficerName = "Dr. ".$headOfficer->name;
         }
 
-        return view('hospitals.show', ['hospital' => $hospital, 'district' => $district, 'headOfficerName' => $headOfficerName]);
+        return view('hospitals.show', ['hospital' => $hospital, 'district' => $district, 'headOfficerName' => $headOfficerName, 'healthWorkers' => $healthWorkers]);
     }
 
     /**
