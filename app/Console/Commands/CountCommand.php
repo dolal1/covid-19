@@ -72,5 +72,26 @@ class CountCommand extends Command
             $district->save();
         }
         echo "\nPatient Sum Per District Operation Done.";
+
+        $healthworkers = Healthworker::all();
+        foreach ($healthworkers as $healthworker) {
+            $patientNoCount = $healthworker->patientNo;
+            if ($patientNoCount>=7) {
+                $healthworker->status = 'senior';
+            }
+
+            if ($patientNoCount>=10) {
+                $healthworker->status = 'consultant';
+            }
+            $healthworker->save();
+        }
+        echo "\nSet Health Worker Statuses Operation Done.";
+
+        foreach ($hospitals as $hospital) {
+            $seniorCount = Healthworker::where('hospital_id', $hospital->id)->where('status', 'senior')->count();
+            $hospital->seniorWorkerNo = $seniorCount;
+            $hospital->save();
+        }
+        echo "\nSet Senior Officers Number Operation Done.";
     }
 }

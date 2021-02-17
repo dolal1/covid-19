@@ -22,6 +22,7 @@ class CreateHospitalsTable extends Migration
             $table->enum('level', array('National', 'Regional', 'General'))->default('General');
             $table->integer('patientNo')->default(0);
             $table->integer('workersNo')->default(0);
+            $table->integer('seniorWorkerNo')->default(0);
             $table->timestamps();
         });
     }

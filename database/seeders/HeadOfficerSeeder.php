@@ -16,7 +16,7 @@ class HeadOfficerSeeder extends Seeder
     public function run()
     {
         $index = 1;
-        foreach (range(1, 5) as $value) {
+        foreach (range(1, 10) as $value) {
             $healthworker = Healthworker::where('hospital_id', '=', "$index")->first();
             $id = $healthworker->id;
             Hospital::where('id', '=' ,$index)->update([

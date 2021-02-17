@@ -17,11 +17,11 @@ class HealthworkerSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1, 20) as $value) {
+        foreach (range(1, 25) as $value) {
             Healthworker::create([
             'name'  => $faker->name,
             'username'  => $faker->unique()->userName,
-            'hospital_id'=> $faker->numberBetween($min = 1, $max = 5),
+            'hospital_id'=> $faker->numberBetween($min = 1, $max = 10),
         ]);
         }
 

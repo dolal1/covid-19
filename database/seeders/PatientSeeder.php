@@ -17,12 +17,12 @@ class PatientSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1, 100) as $value) {
+        foreach (range(1, 150) as $value) {
             Patient::create([
             'name'  => $faker->name,
             'asymptomatic' => $faker->numberBetween($min = 1, $max = 2),
             'gender' => $faker->randomElement($array = array ('F','M')),
-            'healthWorker_id' => $faker->numberBetween($min = 1, $max = 20),
+            'healthWorker_id' => $faker->numberBetween($min = 1, $max = 25),
         ]);
         }
 

@@ -16,10 +16,10 @@ class HospitalSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        foreach (range(1, 5) as $value) {
+        foreach (range(1, 10) as $value) {
             Hospital::create([
                 'name'  => "$faker->company Hospital",
-                'district_id'=> $faker->numberBetween($min = 1, $max = 3),
+                'district_id'=> $faker->numberBetween($min = 1, $max = 5),
                 'level' => $faker->randomElement($array = array ('National', 'Regional', 'General')),
             ]);
         }
