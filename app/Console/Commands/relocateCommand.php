@@ -40,45 +40,58 @@ class relocateCommand extends Command
      */
     public function handle()
     {
-        $allHospitals = Hospital::orderBy('seniorWorkerNo')->get();
         $allHealthworkers = Healthworker::all();
-
-        $index = 0;
-        $i=0;
 
         foreach ($allHealthworkers as $healthworker) {
             if ($healthworker->status == 'senior') {
-                echo "$healthworker->name in hospital $healthworker->hospital_id\n";
+                $hospital = Hospital::orderBy('seniorWorkerNo')->where('level', 'Regional')->first();
 
-                // $firstHospital = Hospital::orderBy('seniorWorkerNo')->first();
-                // $firstHospitalSeniorNumber = $firstHospital->seniorWorkerNo;
-                // if (condition) {
-                //     # code...
-                // }
+                if ($hospital->workersNo >= 10) {
+                    echo "\nMax Senior Worker Limit Reached For $hospital->name\n";
+                    break;
+                } else {
+                    $initialHosp = Hospital::find($healthworker->hospital_id);
+                    echo "$healthworker->name in hospital $initialHosp->name\n";
+
+                    if ($healthworker->id == $initialHosp->headofficer_id && $initialHosp->workersNo < 1){
+                        $newHead = Healthworker::where('hospital_id', $initialHosp->id)
+                                                ->where('id', '!=', $healthworker->id)
+                                                ->first();
+                        echo "This the New Head\n";
+                        error_log($newHead);
+                        $initialHosp->headofficer_id = $newHead->id;
+                        $initialHosp->save();
+                        echo "New Head officer Set For $initialHosp->name, $newHead->name\n";
+                    } elseif ($initialHosp->workersNo < 1){
+                        echo "\nThis Senior Health WWorker the only Healthworker so cannot be Relocated\n";
+                        break;
+                    }
+                    
+                    $healthworker->hospital_id = $hospital->id;
+                    $healthworker->save();
+
+                    echo "$healthworker->name goes to hospital $hospital->name\n";
+                    $hospital->seniorWorkerNo++;
+                    $hospital->save();
+                }
             }
         }
-                echo "\n";
 
-        foreach ($allHospitals as $hospital) {
-                echo "$hospital->name in has $hospital->seniorWorkerNo seniors\n";
-            }
-        
+        $hospitals = Hospital::all();
+        foreach ($hospitals as $hospital) {
+            $healthworkerCount = Healthworker::where('hospital_id', $hospital->id)->count();
+            $hospital->workersNo = $healthworkerCount;
+            $hospital->save();
+            echo "Worker Count in $hospital->name is $hospital->workersNo.\n";
+        }
+        echo "Worker Count Per Hospital Operation Done.";
 
-        // foreach ($allHospitals as $hospital) {
-        //     echo "$i";
-        //     $index += $hospital->seniorWorkerNo;
-        //     if($i>=1) break;
-        //     $i++;
-        // }
-        // echo "\n";
-        // $index = $index/2;
-
-        // if ($index !== $firstHospitalSeniorNumber || $index == 0) {
-        //     # code...
-        //     echo "$index";
-        //     echo 'Haaaa';
-        // } else {
-        //     echo 'Yoo';
-        // }
+        foreach ($hospitals as $hospital) {
+            $seniorCount = Healthworker::where('hospital_id', $hospital->id)->where('status', 'senior')->count();
+            $hospital->seniorWorkerNo = $seniorCount;
+            $hospital->save();
+            echo "Senior Worker Count in $hospital->name is $hospital->seniorWorkerNo.\n";
+        }
+        echo "Set Senior Officers Number Operation Done.";
     }
 }
