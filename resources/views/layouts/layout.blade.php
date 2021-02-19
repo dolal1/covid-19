@@ -59,6 +59,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/donors">Donations</a>
             </li>
+
             @auth
               <li class="nav-item">
                 <a class="nav-link" href="/payments">Payments</a>

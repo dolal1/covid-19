@@ -49,7 +49,6 @@ class PatientsController extends Controller
         $patient->gender = request('gender');
         $patient->healthWorker_id = request('healthWorker_id');
         $patient->asymptomatic = request('asymptomatic');
-        $patient->date = Carbon::now()->toDateTimeString();
 
         $patient->save();
 
