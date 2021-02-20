@@ -93,11 +93,14 @@
                                     </ul>
                                 </li>
                                 @endauth
-                            @guest
-                                <li class="nav-item active">
-                                <a class="nav-link" aria-current="page" href="/signin">Sign In</a>
-                                </li>
-                            @endguest
+                                @guest
+                                    <li class="nav-item active">
+                                        <a class="nav-link" aria-current="page" href="/login">Log In</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" aria-current="page" href="/signup">Sign Up</a>
+                                    </li>
+                                @endguest
                         </ul>
                         </div>
                     </div>
