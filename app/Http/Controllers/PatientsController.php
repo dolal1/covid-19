@@ -52,13 +52,13 @@ class PatientsController extends Controller
 
         $patient->save();
 
-        $hospital = Hospital::find(request('healthWorker_id'));
-        ++$hospital->patientNo;
-        $hospital->save();
-
         $healthWorker = Healthworker::find(request('healthWorker_id'));
         ++$healthWorker->patientNo;
         $healthWorker->save();
+
+        $hospital = Hospital::find($healthWorker->hospital_id);
+        ++$hospital->patientNo;
+        $hospital->save();
 
         $name = $patient->name;
         return redirect('/patients')->with('msg', "$name has Been Added.");
