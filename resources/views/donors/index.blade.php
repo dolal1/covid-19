@@ -18,6 +18,12 @@
   </div>
 @endif
 
+<div class="my-3 p-3 bg-white rounded shadow-sm col-10">
+  <h6 class="border-bottom pb-2 mb-0">Donor Chart</h6>
+  <!-- Chart's container -->
+  <div id="donorChart" style="height: 300px;"></div>
+</div>
+
 <div class="my-3 p-3 bg-white rounded shadow-sm">
   <h5 class="pb-2 mb-0">Donors List</h5>
 </div>
@@ -52,4 +58,17 @@
     {{ $donors->links("pagination::bootstrap-4") }}
   </div>
 </div>
+@endsection
+
+@section('js')
+    <script>
+      const chart = new Chartisan({
+        el: '#donorChart',
+        url: "@chart('donor_chart')",
+        hooks: new ChartisanHooks()
+              .beginAtZero()
+              .colors()
+              .datasets(['bar'])
+      });
+    </script>
 @endsection
